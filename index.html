@@ -1,18 +1,218 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tempo Para Pipeiro | Wind System</title>
-
-<!-- Configurações para o PWA (App instalado no celular) -->
-<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#080e19">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Tempo Para Pipeiros">
 
+<title>Tempo Para Pipeiros | RG Pipas</title>
+<link rel="manifest" href="manifest.json">
+
 <style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+ background:#080e19;
+ color:#f4f7ff;
+ font-family:Arial,sans-serif;
+ padding:14px;
+}
+
+.container{max-width:700px;margin:auto}
+
+header{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:20px 5px;
+ gap:10px;
+}
+
+.logo{
+ font-size:25px;
+ font-weight:900;
+ color:#30baff;
+ letter-spacing:1px;
+}
+
+.sub{font-size:10px;color:#8ca2bd;margin-top:5px}
+.online{font-size:11px;color:#60e5a2;white-space:nowrap}
+
+.tabs{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:9px;
+ margin:15px 0;
+}
+
+.tab{
+ background:#17253a;
+ border:1px solid #30445f;
+ color:#b7c6d9;
+ padding:15px 5px;
+ border-radius:11px;
+ font-weight:bold;
+ cursor:pointer;
+}
+
+.tab.active{
+ background:#087fc2;
+ color:white;
+ border-color:#35baff;
+}
+
+.page{display:none}
+.page.active{display:block}
+
+.card{
+ background:linear-gradient(145deg,#192941,#101a2b);
+ border:1px solid #2b405d;
+ border-radius:15px;
+ padding:18px;
+ margin-bottom:14px;
+}
+
+.heading{
+ color:#39baff;
+ font-size:14px;
+ font-weight:bold;
+ margin-bottom:15px;
+}
+
+.search{
+ display:flex;
+ gap:8px;
+ margin-top:12px;
+}
+
+input{
+ min-width:0;
+ flex:1;
+ background:#0b1728;
+ color:white;
+ border:1px solid #344b68;
+ border-radius:9px;
+ padding:13px;
+ font-size:14px;
+}
+
+button{
+ border:0;
+ border-radius:9px;
+ padding:12px 15px;
+ background:#098edb;
+ color:white;
+ font-weight:bold;
+ cursor:pointer;
+}
+
+button:disabled{opacity:.5;cursor:wait}
+
+.hero{text-align:center;padding:14px 0 20px}
+
+.hero strong{
+ display:block;
+ font-size:57px;
+ color:#32baff;
+}
+
+.hero span{color:#9fb2ca;font-size:12px}
+
+.desc{
+ font-size:13px;
+ color:#afc0d4;
+ line-height:1.6;
+ margin-top:10px;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+}
+
+.metric{
+ background:#22344d;
+ padding:14px;
+ border-radius:10px;
+ min-width:0;
+}
+
+.metric label{
+ font-size:10px;
+ color:#aebed2;
+}
+
+.metric strong{
+ display:block;
+ font-size:19px;
+ margin-top:8px;
+ overflow-wrap:anywhere;
+}
+
+.status{
+ padding:16px;
+ border-radius:11px;
+ text-align:center;
+ background:#21334a;
+ font-weight:bold;
+ line-height:1.5;
+}
+
+.notice{
+ font-size:12px;
+ color:#b3c3d6;
+ line-height:1.7;
+}
+
+.good{background:#153b35;border:1px solid #286b5a}
+.warn{background:#49351a;border:1px solid #936c2e}
+.danger{background:#4b202b;border:1px solid #a64255}
+.info{background:#1c3048;border:1px solid #355778}
+
+.recommend{
+ background:#213149;
+ padding:14px;
+ border-radius:10px;
+ margin-bottom:10px;
+}
+
+.recommend h3{
+ font-size:14px;
+ color:#39baff;
+ margin-bottom:7px;
+}
+
+.recommend p{
+ font-size:13px;
+ color:#c4d0e0;
+ line-height:1.6;
+}
+
+.hour{
+ display:grid;
+ grid-template-columns:1fr 1fr 1fr;
+ gap:8px;
+ border-bottom:1px solid #34445b;
+ padding:12px 0;
+ font-size:12px;
+ align-items:center;
+}
+
+.hour:last-child{border:0}
+.hour small{color:#a5b6ca;line-height:1.6}
+
+#message,#localMessage{
+ font-size:12px;
+ color:#39baff;
+ padding-top:10px;
+ line-height:1.5;
+}
+
 .buy-link{
  display:block;
  text-align:center;
@@ -31,79 +231,21 @@
  filter:brightness(1.15);
  transform:translateY(-2px);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{
- background:#080e19;color:#f4f7ff;
- font-family:Arial,sans-serif;padding:14px
+
+footer{
+ text-align:center;
+ color:#71849c;
+ font-size:11px;
+ padding:22px;
 }
-.container{max-width:700px;margin:auto}
-header{
- display:flex;justify-content:space-between;
- align-items:center;padding:20px 5px
-}
-.logo{font-size:29px;font-weight:900;color:#30baff;letter-spacing:2px}
-.sub{font-size:10px;color:#8ca2bd;margin-top:5px}
-.online{font-size:11px;color:#60e5a2}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:15px 0}
-.tab{
- background:#17253a;border:1px solid #30445f;
- color:#b7c6d9;padding:15px 5px;border-radius:11px;
- font-weight:bold;cursor:pointer
-}
-.tab.active{background:#087fc2;color:white;border-color:#35baff}
-.page{display:none}
-.page.active{display:block}
-.card{
- background:linear-gradient(145deg,#192941,#101a2b);
- border:1px solid #2b405d;border-radius:15px;
- padding:18px;margin-bottom:14px
-}
-.heading{color:#39baff;font-size:14px;font-weight:bold;margin-bottom:15px}
-.search{display:flex;gap:8px;margin-top:12px}
-input{
- min-width:0;flex:1;background:#0b1728;color:white;
- border:1px solid #344b68;border-radius:9px;
- padding:13px;font-size:14px
-}
-button{
- border:0;border-radius:9px;padding:12px 15px;
- background:#098edb;color:white;font-weight:bold;cursor:pointer
-}
-button:disabled{opacity:.5}
-.hero{text-align:center;padding:14px 0 20px}
-.hero strong{display:block;font-size:57px;color:#32baff}
-.hero span{color:#9fb2ca;font-size:12px}
-.desc{font-size:13px;color:#afc0d4;line-height:1.6;margin-top:10px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.metric{background:#22344d;padding:14px;border-radius:10px}
-.metric label{font-size:10px;color:#aebed2}
-.metric strong{display:block;font-size:20px;margin-top:8px}
-.status{
- padding:16px;border-radius:11px;text-align:center;
- background:#21334a;font-weight:bold;line-height:1.5
-}
-.notice{font-size:12px;color:#b3c3d6;line-height:1.7}
-.good{background:#153b35;border:1px solid #286b5a}
-.warn{background:#49351a;border:1px solid #936c2e}
-.danger{background:#4b202b;border:1px solid #a64255}
-.info{background:#1c3048;border:1px solid #355778}
-.recommend{
- background:#213149;padding:14px;border-radius:10px;margin-bottom:10px
-}
-.recommend h3{font-size:14px;color:#39baff;margin-bottom:7px}
-.recommend p{font-size:13px;color:#c4d0e0;line-height:1.6}
-.hour{
- display:flex;justify-content:space-between;gap:8px;
- border-bottom:1px solid #34445b;padding:12px 0;font-size:13px
-}
-.hour:last-child{border:0}
-.hour small{color:#a5b6ca}
-#message,#localMessage{font-size:12px;color:#39baff;padding-top:10px}
-footer{text-align:center;color:#71849c;font-size:11px;padding:22px}
-a{color:#42bfff}
+
 @media(max-width:390px){
- body{padding:9px}.logo{font-size:24px}.hero strong{font-size:49px}
- .search{flex-wrap:wrap}.search button{width:100%}
+ body{padding:9px}
+ .logo{font-size:20px}
+ .hero strong{font-size:49px}
+ .search{flex-wrap:wrap}
+ .search button{width:100%}
+ .hour{font-size:11px}
 }
 </style>
 </head>
@@ -114,394 +256,863 @@ a{color:#42bfff}
 <header>
  <div>
   <div class="logo">🪁 TEMPO PARA PIPEIROS</div>
-  <div class="sub">WIND SYSTEM • METEOROLOGIA</div>
+  <div class="sub">WIND SYSTEM • RG PIPAS</div>
  </div>
  <div class="online">● ONLINE</div>
 </header>
 
 <div class="tabs">
- <button class="tab active" onclick="abrirAba('geral',this)">🌤️ PREVISÃO GERAL</button>
- <button class="tab" onclick="abrirAba('local',this)">📍 LOCAL DE VOO</button>
+ <button class="tab active" onclick="abrirAba('geral',this)">
+  🌤️ PREVISÃO GERAL
+ </button>
+ <button class="tab" onclick="abrirAba('local',this)">
+  📍 LOCAL DE VOO
+ </button>
 </div>
+
+<!-- PREVISÃO GERAL -->
 
 <section id="geral" class="page active">
 
  <div class="card">
   <div class="heading">🌎 CONSULTAR CIDADE</div>
   <div class="search">
-   <input id="cidade" value="Barra Mansa, Rio de Janeiro"
+   <input id="cidade"
+    value="Barra Mansa, Rio de Janeiro"
     placeholder="Digite uma cidade">
-   <button onclick="buscar('cidade')">BUSCAR</button>
+   <button id="cidadeBtn" onclick="buscar('cidade')">BUSCAR</button>
   </div>
   <div id="message"></div>
  </div>
 
  <div class="card">
   <div class="heading">💨 VENTO ATUAL</div>
+
   <div class="hero">
    <strong id="vento">--</strong>
    <span>KM/H</span>
    <p id="localNome" class="desc">Aguardando consulta</p>
   </div>
+
   <div class="grid">
-   <div class="metric"><label>RAJADAS</label><strong id="rajada">--</strong></div>
-   <div class="metric"><label>DIREÇÃO</label><strong id="direcao">--</strong></div>
+   <div class="metric">
+    <label>RAJADAS</label>
+    <strong id="rajada">--</strong>
+   </div>
+   <div class="metric">
+    <label>DIREÇÃO</label>
+    <strong id="direcao">--</strong>
+   </div>
   </div>
  </div>
 
  <div class="card">
   <div class="heading">🌡️ TEMPERATURA E ATMOSFERA</div>
+
   <div class="grid">
-   <div class="metric"><label>TEMPERATURA ATUAL</label><strong id="temp">--</strong></div>
-   <div class="metric"><label>MÁXIMA DO DIA</label><strong id="maxima">--</strong></div>
-   <div class="metric"><label>MÍNIMA DO DIA</label><strong id="minima">--</strong></div>
-   <div class="metric"><label>UMIDADE DO AR</label><strong id="umidade">--</strong></div>
-   <div class="metric"><label>PRESSÃO ATMOSFÉRICA</label><strong id="pressao">--</strong></div>
-   <div class="metric"><label>CHANCE DE CHUVA</label><strong id="chuva">--</strong></div>
+   <div class="metric">
+    <label>TEMPERATURA ATUAL</label>
+    <strong id="temp">--</strong>
+   </div>
+   <div class="metric">
+    <label>MÁXIMA DO DIA</label>
+    <strong id="maxima">--</strong>
+   </div>
+   <div class="metric">
+    <label>MÍNIMA DO DIA</label>
+    <strong id="minima">--</strong>
+   </div>
+   <div class="metric">
+    <label>UMIDADE DO AR</label>
+    <strong id="umidade">--</strong>
+   </div>
+   <div class="metric">
+    <label>PRESSÃO ATMOSFÉRICA</label>
+    <strong id="pressao">--</strong>
+   </div>
+   <div class="metric">
+    <label>CHANCE DE CHUVA AGORA</label>
+    <strong id="chuva">--</strong>
+   </div>
   </div>
  </div>
 
+ <!-- PREVISÃO DE CHUVA -->
+
+ <div class="card">
+  <div class="heading">🌧️ PREVISÃO DE CHUVA</div>
+
+  <div class="grid">
+   <div class="metric">
+    <label>CHUVA PREVISTA HOJE</label>
+    <strong id="chuvaAcumulada">--</strong>
+   </div>
+
+   <div class="metric">
+    <label>CHANCE MÁXIMA HOJE</label>
+    <strong id="chuvaMaxima">--</strong>
+   </div>
+
+   <div class="metric">
+    <label>PRECIPITAÇÃO ATUAL</label>
+    <strong id="chuvaAtual">--</strong>
+   </div>
+
+   <div class="metric">
+    <label>CHUVA AMANHÃ</label>
+    <strong id="chuvaAmanha">--</strong>
+   </div>
+  </div>
+
+  <div id="alertaChuva" class="status info" style="margin-top:12px">
+   Aguardando previsão de chuva...
+  </div>
+
+  <p class="desc" id="chuvaResumo">
+   Aguardando dados meteorológicos.
+  </p>
+ </div>
+
+ <!-- ALERTA DE VENTO -->
+
  <div class="card">
   <div class="heading">⚠️ ALERTA DE VENTO</div>
-  <div id="alerta" class="status info">Aguardando dados...</div>
+  <div id="alerta" class="status info">
+   Aguardando dados...
+  </div>
   <p id="alertaDesc" class="desc"></p>
  </div>
 
+ <!-- GUIA -->
+
  <div class="card">
   <div class="heading">🪁 GUIA DE TAMANHOS</div>
-  <div id="tamanho" class="status info">Aguardando dados...</div>
+
+  <div id="tamanho" class="status info">
+   Aguardando dados...
+  </div>
+
   <p id="tamanhoDesc" class="desc"></p>
+
   <div class="recommend" style="margin-top:12px">
    <h3>📏 Tamanhos disponíveis</h3>
    <p>45 cm • 50 cm • 55 cm • 60 cm • 70 cm • 80 cm • 90 cm</p>
   </div>
  </div>
 
+ <!-- INFORMAÇÕES SOBRE LINHAS -->
+
  <div class="card">
   <div class="heading">🧵 INFORMAÇÕES SOBRE LINHAS</div>
+
   <div class="recommend">
    <h3>Linha lisa</h3>
    <p>Termo usado para descrever linhas com superfície mais regular e menor aspereza ao toque.</p>
   </div>
+
   <div class="recommend">
    <h3>Linha meio-termo</h3>
-   <p>Expressão informal para linhas que apresentam características intermediárias de textura.usada geralmente para varios tipos de cruzo</p>
+   <p>Expressão informal para linhas que apresentam características intermediárias de textura. Usada geralmente para vários tipos de cruzo.</p>
   </div>
+
   <div class="recommend">
    <h3>Falso liso</h3>
-   <p>Nome popular usado para identificar determinados tipos de linha cuja textura pode parecer lisa, mas apresenta características diferentes.Usada geralmente para rancões e estanques com raia/pipas</p>
+   <p>Nome popular usado para identificar determinados tipos de linha cuja textura pode parecer lisa, mas apresenta características diferentes. Usada geralmente para rancões e estanques com raia/pipas.</p>
   </div>
+
   <div class="recommend">
    <h3>Linha áspera</h3>
-   <p>Termo usado para linhas com superfície de maior rugosidade perceptível ao toque.usanda geralmente para descarregadas,tenteio,largadas. </p>
+   <p>Termo usado para linhas com superfície de maior rugosidade perceptível ao toque. Usada geralmente para descarregadas, tenteio e largadas.</p>
   </div>
+
   <p class="notice">
-   Esses nomes são descrições populares, não uma classificação técnica padronizada. As características variam conforme o material e o fabricante.lembrando que a habilidade do pipeiro tambem conta
+   Esses nomes são descrições populares, não uma classificação técnica padronizada. As características variam conforme o material e o fabricante. A habilidade do pipeiro também conta.
   </p>
  </div>
+
+ <!-- FIBRA -->
 
  <div class="card">
   <div class="heading">🎋 FIBRA E ESTRUTURA</div>
+
   <div class="recommend">
    <h3>Fibra mais flexível</h3>
-   <p>Geralmente usada para pipas muchas.Apresenta maior capacidade de flexionar. A resposta estrutural depende da espessura, do comprimento e da montagem.</p>
+   <p>Geralmente usada para pipas muchas. Apresenta maior capacidade de flexionar. A resposta estrutural depende da espessura, do comprimento e da montagem.</p>
   </div>
+
   <div class="recommend">
    <h3>Fibra mais rígida</h3>
-   <p>Geralmente usada Apresenta menor flexibilidade e maior resistência à deformação, dependendo das características do material.</p>
+   <p>Apresenta menor flexibilidade e maior resistência à deformação, dependendo das características do material.</p>
   </div>
-  <p class="notice">A escolha deve considerar a construção da pipa e as especificações do fabricante.</p>
+
+  <p class="notice">
+   A escolha deve considerar a construção da pipa e as especificações do fabricante.
+  </p>
  </div>
+
+ <!-- PRESSÃO -->
 
  <div class="card">
   <div class="heading">📊 PRESSÃO E CARGA NA LINHA</div>
-  <div class="status info">Pressão atmosférica: <span id="pressaoResumo">--</span></div>
+
+  <div class="status info">
+   Pressão atmosférica:
+   <span id="pressaoResumo">--</span>
+  </div>
+
   <p class="desc">
    A pressão atmosférica é diferente da força exercida pela pipa na linha. A carga na linha varia com a área da pipa, o formato, o vento, as rajadas e outros fatores.
   </p>
+
   <p class="desc">
    Não existe um valor fixo em kg que possa ser calculado apenas pela velocidade do vento. Não use uma estimativa do site como limite de segurança de uma linha.
   </p>
  </div>
 
+ <!-- PRÓXIMAS HORAS -->
+
  <div class="card">
-  <div class="heading">⏰ PRÓXIMAS HORAS</div>
+  <div class="heading">⏰ PRÓXIMAS 12 HORAS</div>
   <div id="horarios">Aguardando consulta...</div>
  </div>
 
 </section>
 
+<!-- LOCAL DE VOO -->
+
 <section id="local" class="page">
 
  <div class="card">
   <div class="heading">📍 INFORME ONDE VAI SOLTAR PIPA</div>
-  <p class="notice">Digite o endereço, bairro, praça ou ponto de referência. Quanto mais completo o endereço, melhor a busca.</p>
+
+  <p class="notice">
+   Digite uma localidade ou utilize o GPS do celular para consultar as condições do ponto onde você está.
+  </p>
+
   <div class="search">
-   <input id="endereco" placeholder="Rua, bairro, cidade...">
+   <input id="endereco"
+    placeholder="Bairro, cidade ou localidade...">
   </div>
-  <button id="localBtn" style="width:100%" onclick="buscar('endereco')">CONSULTAR ESTE LOCAL</button>
+
+  <button id="localBtn"
+   style="width:100%;margin-top:10px"
+   onclick="buscar('endereco')">
+   CONSULTAR ESTE LOCAL
+  </button>
+
+  <button id="gpsBtn"
+   style="width:100%;margin-top:10px;background:#176b48"
+   onclick="usarGPS()">
+   📍 USAR MINHA LOCALIZAÇÃO GPS
+  </button>
+
   <div id="localMessage"></div>
-  <div id="localResultado"></div>
+  <div id="localResultado" class="desc"></div>
  </div>
 
  <div class="card">
   <div class="heading">💨 CONDIÇÕES NO LOCAL</div>
+
   <div class="hero">
    <strong id="ventoLocal">--</strong>
    <span>KM/H</span>
   </div>
+
   <div class="grid">
-   <div class="metric"><label>RAJADAS</label><strong id="rajadaLocal">--</strong></div>
-   <div class="metric"><label>DIREÇÃO</label><strong id="direcaoLocal">--</strong></div>
-   <div class="metric"><label>TEMPERATURA</label><strong id="tempLocal">--</strong></div>
-   <div class="metric"><label>UMIDADE</label><strong id="umidadeLocal">--</strong></div>
+   <div class="metric">
+    <label>RAJADAS</label>
+    <strong id="rajadaLocal">--</strong>
+   </div>
+
+   <div class="metric">
+    <label>DIREÇÃO</label>
+    <strong id="direcaoLocal">--</strong>
+   </div>
+
+   <div class="metric">
+    <label>TEMPERATURA</label>
+    <strong id="tempLocal">--</strong>
+   </div>
+
+   <div class="metric">
+    <label>UMIDADE</label>
+    <strong id="umidadeLocal">--</strong>
+   </div>
+
+   <div class="metric">
+    <label>CHANCE DE CHUVA</label>
+    <strong id="chuvaLocal">--</strong>
+   </div>
+
+   <div class="metric">
+    <label>CHUVA PREVISTA HOJE</label>
+    <strong id="chuvaPrevistaLocal">--</strong>
+   </div>
   </div>
  </div>
 
  <div class="card">
   <div class="heading">⚠️ ALERTA DO LOCAL</div>
-  <div id="alertaLocal" class="status info">Consulte um local primeiro.</div>
+
+  <div id="alertaLocal" class="status info">
+   Consulte um local primeiro.
+  </div>
+
   <p id="descLocal" class="desc"></p>
  </div>
 
  <div class="card">
+  <div class="heading">🌧️ CHUVA NO LOCAL</div>
+
+  <div id="alertaChuvaLocal" class="status info">
+   Aguardando consulta...
+  </div>
+
+  <p id="descChuvaLocal" class="desc"></p>
+ </div>
+
+ <div class="card">
   <div class="heading">📌 PRECISÃO DA LOCALIZAÇÃO</div>
+
   <p class="notice">
-   A consulta usa o ponto geográfico encontrado pelo serviço de busca. Nem todo endereço ou rua é identificado com precisão. A previsão é uma estimativa para a região e não substitui a observação das condições reais no local.
+   A consulta por endereço utiliza a localização geográfica encontrada pelo serviço de busca e pode ser aproximada. O GPS permite consultar as coordenadas do aparelho. A previsão é uma estimativa para a região e não substitui a observação das condições reais no local.
   </p>
  </div>
 
 </section>
 
+<!-- LOJA -->
+
 <div class="card" style="border:1px solid #168dcc">
-  <div class="heading">🛒 LOJA RG PIPAS</div>
+ <div class="heading">🛒 LOJA RG PIPAS</div>
 
-  <div class="recommend">
-    <h3>🧵 Linhas I.S</h3>
-    <p>
-      Confira as opções de linhas disponíveis pelo nosso parceiro.
-    </p>
-  </div>
-
-  <a
-    href="https://linkbio.co/bl4cknog"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="buy-link">
-    🛍️ COMPRAR LINHA COM DESCONTO
-  </a>
-
-  <p class="notice" style="margin-top:12px">
-    Você será direcionado para nossa página de links.
+ <div class="recommend">
+  <h3>🧵 Linhas I.S</h3>
+  <p>
+   Confira as opções de linhas disponíveis pelo nosso parceiro.
   </p>
+ </div>
+
+ <a
+  href="https://linkbio.co/bl4cknog"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="buy-link">
+  🛍️ COMPRAR LINHA COM DESCONTO
+ </a>
+
+ <p class="notice" style="margin-top:12px">
+  Você será direcionado para nossa página de links.
+ </p>
 </div>
 
 <footer>
  RG PIPAS © 2026<br>
  WIND SYSTEM • DADOS METEOROLÓGICOS OPEN-METEO
 </footer>
+
 </div>
 
 <script>
+
+// TROCAR ABAS
+
 function abrirAba(nome,botao){
  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+
  document.getElementById(nome).classList.add('active');
  botao.classList.add('active');
 }
 
+// FUNÇÕES AUXILIARES
+
+function numero(valor,casas=1){
+ if(valor===null || valor===undefined || !Number.isFinite(Number(valor))){
+  return "--";
+ }
+ return Number(valor).toFixed(casas);
+}
+
 function direcao(graus){
- const nomes=["Norte","Nordeste","Leste","Sudeste","Sul","Sudoeste","Oeste","Noroeste"];
+ if(graus===null || graus===undefined)return "--";
+
+ const nomes=[
+  "Norte","Nordeste","Leste","Sudeste",
+  "Sul","Sudoeste","Oeste","Noroeste"
+ ];
+
  return nomes[Math.round(graus/45)%8];
 }
 
+// ANÁLISE DO VENTO
+
 function analisar(vento,rajada){
+
  if(rajada>=25 || vento>=18 || rajada-vento>=12){
   return {
    titulo:"🔴 VENTO MUITO FORTE",
    classe:"danger",
-   texto:"Tapoooxa! Passou um mano voando junto com a pipa aqui agora,nem bota pipa no alto hoje!"
+   texto:"Vento muito forte e com rajadas. Não recomendamos soltar pipa nessas condições."
   };
  }
+
  if(vento>=13 || rajada>=18){
   return {
    titulo:"🟠 ATENÇÃO: VENTO ELEVADO",
    classe:"warn",
-   texto:"Cuidado pra não perder o dedo em doidão!"
+   texto:"Vento elevado. Fique atento às rajadas e às mudanças nas condições."
   };
  }
+
  if(vento>=5){
   return {
    titulo:"🟢 VENTO MODERADO",
    classe:"good",
-   texto:"Ventin ta filé hoje em!"
+   texto:"Vento moderado. Continue acompanhando as condições meteorológicas."
   };
  }
+
  return {
   titulo:"🟡 VENTO FRACO",
   classe:"warn",
-  texto:"Ixi! Vento hoje ta fraquin mané."
+  texto:"Vento fraco. A velocidade pode variar ao longo do dia."
  };
 }
 
+// GUIA DE TAMANHOS
+
 function guiaTamanho(vento,rajada){
+
  if(rajada>=25 || vento>=18 || rajada-vento>=12){
   return {
    titulo:"⛔ NÃO RECOMENDADO",
-   texto:"Não recomendamos usar uma pipa pequena para compensar vento muito forte. Aguarde condições mais seguras."
+   texto:"Não recomendamos soltar pipa com vento muito forte. Aguarde condições mais seguras."
   };
  }
+
  if(vento<5){
   return {
    titulo:"VENTO FRACO",
-   texto:"Hoje a pipa só sobe no ventilador!"
+   texto:"Condições de vento fraco."
   };
  }
+
  if(vento<9){
   return {
    titulo:"REFERÊNCIA: 55 A 90 CM",
-   texto:"Tamanhos maiores podem apresentar maior área exposta ao vento. A adequação depende do peso e do projeto."
+   texto:"Tamanhos maiores apresentam maior área exposta ao vento. A adequação depende do peso e do projeto."
   };
  }
+
  if(vento<13){
   return {
    titulo:"REFERÊNCIA: 45 A 90 CM",
    texto:"Faixa intermediária de tamanhos para avaliação recreativa. Observe sempre as rajadas."
   };
  }
+
  return {
-  titulo:"45 A 55",
-  texto:"Vento ta muito forte,cuidado!"
+  titulo:"VENTO ELEVADO",
+  texto:"As condições exigem atenção. Não utilize tamanhos menores como forma de compensar vento forte."
  };
 }
 
+// ANÁLISE DA CHUVA
+
+function analisarChuva(chance,volume){
+
+ if(chance===null || chance===undefined){
+  return {
+   titulo:"🌧️ DADOS INDISPONÍVEIS",
+   classe:"info",
+   texto:"Não foi possível obter a probabilidade de chuva."
+  };
+ }
+
+ if(chance>=70 || volume>=5){
+  return {
+   titulo:"🔴 ALTA POSSIBILIDADE DE CHUVA",
+   classe:"danger",
+   texto:"A previsão indica possibilidade elevada de chuva. Evite atividades ao ar livre se houver chuva ou tempestade."
+  };
+ }
+
+ if(chance>=40 || volume>0){
+  return {
+   titulo:"🟠 ATENÇÃO À CHUVA",
+   classe:"warn",
+   texto:"Existe possibilidade de precipitação. Acompanhe as próximas horas."
+  };
+ }
+
+ return {
+  titulo:"🟢 BAIXA POSSIBILIDADE DE CHUVA",
+  classe:"good",
+  texto:"A previsão indica baixa possibilidade de chuva neste período. As condições podem mudar."
+ };
+}
+
+// CONSULTAR API METEOROLÓGICA
+
+async function consultarCoordenadas(lat,lon,nome,localMode){
+
+ const api=
+  "https://api.open-meteo.com/v1/forecast"+
+  "?latitude="+encodeURIComponent(lat)+
+  "&longitude="+encodeURIComponent(lon)+
+  "&current=temperature_2m,relative_humidity_2m,precipitation,pressure_msl,wind_speed_10m,wind_direction_10m,wind_gusts_10m"+
+  "&hourly=precipitation_probability,precipitation,wind_speed_10m,wind_gusts_10m"+
+  "&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max"+
+  "&forecast_days=2"+
+  "&timezone=auto"+
+  "&wind_speed_unit=kmh"+
+  "&precipitation_unit=mm";
+
+ const resp=await fetch(api);
+
+ if(!resp.ok){
+  throw new Error("Falha ao consultar os dados meteorológicos.");
+ }
+
+ const dados=await resp.json();
+
+ if(!dados.current || !dados.hourly || !dados.daily){
+  throw new Error("A API não retornou todos os dados necessários.");
+ }
+
+ mostrarDados(dados,nome,localMode);
+}
+
+// BUSCA POR CIDADE OU LOCALIDADE
+
 async function buscar(campo){
+
  const valor=document.getElementById(campo).value.trim();
  const localMode=campo==="endereco";
- const msg=document.getElementById(localMode?"localMessage":"message");
- const botao=document.getElementById("localBtn");
+
+ const msg=document.getElementById(
+  localMode?"localMessage":"message"
+ );
+
+ const botao=document.getElementById(
+  localMode?"localBtn":"cidadeBtn"
+ );
 
  if(!valor){
-  msg.textContent="Digite um local para consultar.";
+  msg.textContent="Digite uma cidade ou localidade.";
   return;
  }
 
- msg.textContent="Buscando localização e previsão...";
- if(localMode)botao.disabled=true;
+ msg.textContent="Consultando localização e previsão...";
+ botao.disabled=true;
 
  try{
-  const geoUrl="https://geocoding-api.open-meteo.com/v1/search?name="+
-   encodeURIComponent(valor)+"&count=5&language=pt&format=json";
+
+  const geoUrl=
+   "https://geocoding-api.open-meteo.com/v1/search?name="+
+   encodeURIComponent(valor)+
+   "&count=5&language=pt&format=json";
 
   const geoResp=await fetch(geoUrl);
-  if(!geoResp.ok)throw new Error("Não foi possível consultar a localização.");
+
+  if(!geoResp.ok){
+   throw new Error("Erro na busca da localização.");
+  }
 
   const geo=await geoResp.json();
+
   if(!geo.results || !geo.results.length){
-   throw new Error("Local não encontrado. Tente incluir a cidade e o estado.");
+   throw new Error("Local não encontrado. Tente informar bairro e cidade.");
   }
 
   const lugar=geo.results[0];
 
-  const api="https://api.open-meteo.com/v1/forecast"+
-   "?latitude="+lugar.latitude+
-   "&longitude="+lugar.longitude+
-   "¤t=temperature_2m,relative_humidity_2m,precipitation,pressure_msl,wind_speed_10m,wind_direction_10m,wind_gusts_10m"+
-   "&hourly=precipitation_probability,wind_speed_10m,wind_gusts_10m"+
-   "&daily=temperature_2m_max,temperature_2m_min"+
-   "&forecast_days=2&timezone=auto";
+  const nome=[
+   lugar.name,
+   lugar.admin1,
+   lugar.country
+  ].filter(Boolean).join(", ");
 
-  const resp=await fetch(api);
-  if(!resp.ok)throw new Error("Não foi possível obter a previsão.");
+  await consultarCoordenadas(
+   lugar.latitude,
+   lugar.longitude,
+   nome,
+   localMode
+  );
 
-  const dados=await resp.json();
-  mostrarDados(dados,lugar,localMode);
-  msg.textContent="Consulta atualizada com sucesso.";
+  msg.textContent="Consulta atualizada com sucesso!";
 
  }catch(e){
+
   msg.textContent="Erro: "+e.message;
+
  }finally{
-  if(localMode)botao.disabled=false;
+
+  botao.disabled=false;
+
  }
 }
 
-function mostrarDados(d,lugar,localMode){
- const c=d.current;
- const vento=c.wind_speed_10m;
- const rajada=c.wind_gusts_10m;
- const temp=c.temperature_2m;
- const umidade=c.relative_humidity_2m;
- const pressao=c.pressure_msl;
- const direcaoTexto=direcao(c.wind_direction_10m);
- const estado=analisar(vento,rajada);
- const guia=guiaTamanho(vento,rajada);
+// CONSULTA POR GPS
 
- const localTexto=[
-  lugar.name,lugar.admin1,lugar.country
- ].filter(Boolean).join(", ");
+function usarGPS(){
 
- if(localMode){
-  document.getElementById("ventoLocal").textContent=vento.toFixed(1);
-  document.getElementById("rajadaLocal").textContent=rajada.toFixed(1)+" km/h";
-  document.getElementById("direcaoLocal").textContent=direcaoTexto;
-  document.getElementById("tempLocal").textContent=temp.toFixed(1)+" °C";
-  document.getElementById("umidadeLocal").textContent=umidade+"%";
-  document.getElementById("alertaLocal").textContent=estado.titulo;
-  document.getElementById("alertaLocal").className="status "+estado.classe;
-  document.getElementById("descLocal").textContent=estado.texto;
-  document.getElementById("localResultado").innerHTML=
-   "<div class='location-result'><b>Local encontrado:</b><br>"+
-   localTexto+"<br><small>Coordenadas: "+
-   lugar.latitude.toFixed(4)+", "+lugar.longitude.toFixed(4)+
-   "</small></div>";
+ const msg=document.getElementById("localMessage");
+ const botao=document.getElementById("gpsBtn");
+
+ if(!navigator.geolocation){
+  msg.textContent="Seu navegador não suporta localização GPS.";
   return;
  }
 
- document.getElementById("vento").textContent=vento.toFixed(1);
- document.getElementById("rajada").textContent=rajada.toFixed(1)+" km/h";
- document.getElementById("direcao").textContent=direcaoTexto;
- document.getElementById("localNome").textContent=localTexto;
- document.getElementById("temp").textContent=temp.toFixed(1)+" °C";
- document.getElementById("maxima").textContent=d.daily.temperature_2m_max[0]+" °C";
- document.getElementById("minima").textContent=d.daily.temperature_2m_min[0]+" °C";
- document.getElementById("umidade").textContent=umidade+"%";
- document.getElementById("pressao").textContent=pressao+" hPa";
- document.getElementById("pressaoResumo").textContent=pressao+" hPa";
+ botao.disabled=true;
+ msg.textContent="Obtendo sua localização...";
 
- const indice=d.hourly.time.findIndex(t=>t>=c.time);
- const chuva=d.hourly.precipitation_probability;
+ navigator.geolocation.getCurrentPosition(
+
+  async function(pos){
+
+   try{
+
+    const lat=pos.coords.latitude;
+    const lon=pos.coords.longitude;
+
+    msg.textContent="Localização encontrada. Consultando previsão...";
+
+    await consultarCoordenadas(
+     lat,
+     lon,
+     "Sua localização GPS",
+     true
+    );
+
+    msg.textContent="Previsão do seu local atualizada!";
+
+   }catch(e){
+
+    msg.textContent="Erro: "+e.message;
+
+   }finally{
+
+    botao.disabled=false;
+
+   }
+  },
+
+  function(erro){
+
+   if(erro.code===1){
+    msg.textContent="Permita o acesso à localização nas configurações do navegador.";
+   }else if(erro.code===3){
+    msg.textContent="Tempo esgotado ao obter GPS. Tente novamente.";
+   }else{
+    msg.textContent="Não foi possível obter sua localização.";
+   }
+
+   botao.disabled=false;
+
+  },
+
+  {
+   enableHighAccuracy:true,
+   timeout:15000,
+   maximumAge:60000
+  }
+
+ );
+
+}
+
+// MOSTRAR OS DADOS
+
+function mostrarDados(d,nome,localMode){
+
+ const c=d.current;
+ const h=d.hourly;
+ const dia=d.daily;
+
+ const vento=Number(c.wind_speed_10m);
+ const rajada=Number(c.wind_gusts_10m);
+ const temp=c.temperature_2m;
+ const umidade=c.relative_humidity_2m;
+ const pressao=c.pressure_msl;
+
+ const direcaoTexto=direcao(c.wind_direction_10m);
+
+ const estado=analisar(vento,rajada);
+ const guia=guiaTamanho(vento,rajada);
+
+ // IDENTIFICAR HORA ATUAL
+
+ let indice=h.time.findIndex(t=>t>=c.time);
+
+ if(indice<0)indice=0;
+
+ // CHUVA
+
+ const chance=h.precipitation_probability[indice];
+ const chuvaAtual=c.precipitation;
+ const chuvaDia=dia.precipitation_sum[0];
+ const chanceMax=dia.precipitation_probability_max[0];
+
+ const chuvaAmanha=dia.precipitation_sum[1];
+
+ const estadoChuva=analisarChuva(
+  chance,
+  chuvaDia
+ );
+
+ // ABA LOCAL
+
+ if(localMode){
+
+  document.getElementById("ventoLocal").textContent=numero(vento);
+  document.getElementById("rajadaLocal").textContent=numero(rajada)+" km/h";
+  document.getElementById("direcaoLocal").textContent=direcaoTexto;
+  document.getElementById("tempLocal").textContent=numero(temp)+" °C";
+  document.getElementById("umidadeLocal").textContent=umidade+"%";
+
+  document.getElementById("chuvaLocal").textContent=
+   chance==null?"--":chance+"%";
+
+  document.getElementById("chuvaPrevistaLocal").textContent=
+   numero(chuvaDia)+" mm";
+
+  document.getElementById("alertaLocal").textContent=estado.titulo;
+  document.getElementById("alertaLocal").className="status "+estado.classe;
+
+  document.getElementById("descLocal").textContent=estado.texto;
+
+  document.getElementById("alertaChuvaLocal").textContent=
+   estadoChuva.titulo;
+
+  document.getElementById("alertaChuvaLocal").className=
+   "status "+estadoChuva.classe;
+
+  document.getElementById("descChuvaLocal").textContent=
+   estadoChuva.texto+
+   " Volume previsto hoje: "+numero(chuvaDia)+" mm.";
+
+  document.getElementById("localResultado").textContent=
+   "Local consultado: "+nome+
+   " | Coordenadas: "+numero(d.latitude,4)+", "+numero(d.longitude,4);
+
+  return;
+ }
+
+ // ABA GERAL
+
+ document.getElementById("vento").textContent=numero(vento);
+ document.getElementById("rajada").textContent=numero(rajada)+" km/h";
+ document.getElementById("direcao").textContent=direcaoTexto;
+ document.getElementById("localNome").textContent=nome;
+
+ document.getElementById("temp").textContent=numero(temp)+" °C";
+ document.getElementById("maxima").textContent=numero(dia.temperature_2m_max[0])+" °C";
+ document.getElementById("minima").textContent=numero(dia.temperature_2m_min[0])+" °C";
+
+ document.getElementById("umidade").textContent=umidade+"%";
+ document.getElementById("pressao").textContent=numero(pressao)+" hPa";
+ document.getElementById("pressaoResumo").textContent=numero(pressao)+" hPa";
+
  document.getElementById("chuva").textContent=
-  chuva[Math.max(0,indice)]+"%";
+  chance==null?"--":chance+"%";
+
+ document.getElementById("chuvaAcumulada").textContent=
+  numero(chuvaDia)+" mm";
+
+ document.getElementById("chuvaMaxima").textContent=
+  chanceMax==null?"--":chanceMax+"%";
+
+ document.getElementById("chuvaAtual").textContent=
+  numero(chuvaAtual)+" mm";
+
+ document.getElementById("chuvaAmanha").textContent=
+  numero(chuvaAmanha)+" mm";
+
+ // ALERTA DE CHUVA
+
+ document.getElementById("alertaChuva").textContent=
+  estadoChuva.titulo;
+
+ document.getElementById("alertaChuva").className=
+  "status "+estadoChuva.classe;
+
+ document.getElementById("chuvaResumo").textContent=
+  estadoChuva.texto+
+  " Precipitação prevista hoje: "+numero(chuvaDia)+" mm."+
+  " Chance máxima de chuva: "+
+  (chanceMax==null?"indisponível":chanceMax+"%")+
+  ".";
+
+ // ALERTA DE VENTO
 
  document.getElementById("alerta").textContent=estado.titulo;
  document.getElementById("alerta").className="status "+estado.classe;
  document.getElementById("alertaDesc").textContent=estado.texto;
 
+ // GUIA
+
  document.getElementById("tamanho").textContent=guia.titulo;
  document.getElementById("tamanho").className="status info";
  document.getElementById("tamanhoDesc").textContent=guia.texto;
 
- const h=d.hourly;
+ // PRÓXIMAS 12 HORAS
+
  let html="";
- for(let i=Math.max(0,indice);i<Math.min(h.time.length,Math.max(0,indice)+7);i++){
+
+ for(
+  let i=indice;
+  i<Math.min(h.time.length,indice+12);
+  i++
+ ){
+
   const hora=h.time[i].slice(11,16);
-  html+="<div class='hour'><span>"+hora+"</span>"+
-   "<span>Vento: "+h.wind_speed_10m[i]+" km/h</span>"+
-   "<small>Rajada: "+h.wind_gusts_10m[i]+" km/h</small></div>";
+
+  const ventoHora=numero(h.wind_speed_10m[i]);
+  const rajadaHora=numero(h.wind_gusts_10m[i]);
+
+  const chanceHora=h.precipitation_probability[i];
+  const chuvaHora=h.precipitation[i];
+
+  html+=
+   "<div class='hour'>"+
+    "<span><b>"+hora+"</b><br>"+
+    "<small>Vento: "+ventoHora+" km/h</small></span>"+
+
+    "<span><small>Rajada:<br>"+rajadaHora+" km/h</small></span>"+
+
+    "<span><small>🌧️ "+
+    (chanceHora==null?"--":chanceHora+"%")+
+    "<br>"+numero(chuvaHora)+" mm</small></span>"+
+   "</div>";
+
  }
- document.getElementById("horarios").innerHTML=html||"Previsão horária indisponível.";
+
+ document.getElementById("horarios").innerHTML=
+  html||"Previsão horária indisponível.";
+
 }
+
+// CONSULTA INICIAL
 
 buscar("cidade");
 
-// Registro do Service Worker para o PWA funcionar e instalar como app
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then(() => console.log('Service Worker registrado!'))
-      .catch(err => console.log('Erro no Service Worker:', err));
-  });
+// SERVICE WORKER PARA PWA
+
+if("serviceWorker" in navigator){
+
+ window.addEventListener("load",()=>{
+
+  navigator.serviceWorker.register("./sw.js")
+   .catch(err=>console.log("Erro no Service Worker:",err));
+
+ });
+
 }
+
 </script>
+
 </body>
 </html>

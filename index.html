@@ -1,4 +1,4 @@
-Tempo pipeiros
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,22 +7,42 @@ Tempo pipeiros
 <meta name="theme-color" content="#080e19">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Tempo Para Pipeiros">
+<meta name="apple-mobile-web-app-title" content="Tempo Pipeiros">
 
 <title>Tempo Para Pipeiros | RG Pipas</title>
 <link rel="manifest" href="manifest.json">
 
-/* ===== REPAGINAÇÃO RG PIPAS ===== */
-
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap');
 
+*{
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+}
+
+:root{
+ --bg:#070b16;
+ --panel:#111c30;
+ --panel2:#182741;
+ --blue:#32c5ff;
+ --purple:#8a55ff;
+ --gold:#ffd84d;
+ --text:#f4f7ff;
+ --muted:#9bb1d0;
+ --border:#2b466b;
+}
+
 body{
+ min-height:100vh;
  background:
-  radial-gradient(circle at 10% 10%, #102b55 0%, transparent 35%),
-  radial-gradient(circle at 90% 80%, #35135f 0%, transparent 32%),
-  #070b16;
+  radial-gradient(circle at 10% 5%,#10345e 0%,transparent 34%),
+  radial-gradient(circle at 95% 75%,#35145f 0%,transparent 33%),
+  var(--bg);
+ color:var(--text);
  font-family:'Rajdhani',sans-serif;
  overflow-x:hidden;
+ padding:14px;
 }
 
 body::before{
@@ -30,30 +50,117 @@ body::before{
  position:fixed;
  inset:0;
  pointer-events:none;
- z-index:-1;
- opacity:.12;
- background-image:
-  radial-gradient(#42caff 1px, transparent 1px);
+ z-index:0;
+ opacity:.10;
+ background-image:radial-gradient(#42caff 1px,transparent 1px);
  background-size:22px 22px;
+}
+
+button,input{
+ font:inherit;
+}
+
+button{
+ cursor:pointer;
+ transition:.2s;
+}
+
+button:active{
+ transform:scale(.97);
+}
+
+button:disabled{
+ opacity:.55;
+ cursor:wait;
 }
 
 .container{
  max-width:760px;
+ margin:auto;
  position:relative;
+ z-index:1;
 }
 
+/* PIPAS DECORATIVAS */
+
+.kite-background{
+ position:fixed;
+ inset:0;
+ overflow:hidden;
+ pointer-events:none;
+ z-index:0;
+}
+
+.kite{
+ position:absolute;
+ width:43px;
+ height:43px;
+ transform:rotate(45deg);
+ opacity:.10;
+ border:2px solid #48caff;
+ background:linear-gradient(135deg,#168fff,#803dff);
+}
+
+.kite::after{
+ content:"";
+ position:absolute;
+ width:2px;
+ height:90px;
+ top:42px;
+ left:20px;
+ background:linear-gradient(#43caff,transparent);
+ transform:rotate(-45deg);
+}
+
+.k1{
+ top:14%;
+ left:5%;
+ animation:floatKite 8s ease-in-out infinite;
+}
+
+.k2{
+ top:47%;
+ right:6%;
+ width:32px;
+ height:32px;
+ border-color:#ffcc43;
+ background:linear-gradient(135deg,#ffb900,#ff5b55);
+ animation:floatKite 10s ease-in-out infinite reverse;
+}
+
+.k3{
+ bottom:12%;
+ left:12%;
+ width:27px;
+ height:27px;
+ border-color:#c16aff;
+ background:linear-gradient(135deg,#873dff,#ff4bc6);
+ animation:floatKite 9s ease-in-out infinite;
+}
+
+@keyframes floatKite{
+ 0%,100%{transform:rotate(45deg) translateY(0)}
+ 50%{transform:rotate(48deg) translateY(-15px)}
+}
+
+/* CABEÇALHO */
+
 header{
- padding:24px 12px;
- background:linear-gradient(135deg,#101e38aa,#162a49aa);
+ padding:23px 13px;
+ background:linear-gradient(135deg,#101e38e8,#162a49e8);
  border:1px solid #29466b;
- border-radius:18px;
+ border-radius:20px;
  box-shadow:0 0 25px #087fc222;
- margin-bottom:20px;
+ margin-bottom:18px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
 }
 
 .logo{
  font-family:'Orbitron',sans-serif;
- font-size:clamp(17px,4vw,26px);
+ font-size:clamp(17px,4vw,25px);
  font-weight:800;
  background:linear-gradient(90deg,#37cfff,#a675ff,#ffe259);
  -webkit-background-clip:text;
@@ -63,8 +170,10 @@ header{
 }
 
 .sub{
+ font-size:11px;
  letter-spacing:2px;
  color:#a4b9dc;
+ margin-top:6px;
 }
 
 .online{
@@ -72,20 +181,29 @@ header{
  padding:7px 10px;
  border-radius:20px;
  border:1px solid #247e61;
+ color:#72e8b5;
+ font-size:11px;
+ white-space:nowrap;
 }
 
+/* ABAS */
+
 .tabs{
+ display:grid;
+ grid-template-columns:1fr 1fr;
  gap:12px;
+ margin-bottom:16px;
 }
 
 .tab{
  background:linear-gradient(145deg,#142440,#10192a);
  border:1px solid #2c4669;
  border-radius:14px;
- font-family:'Rajdhani',sans-serif;
- font-size:14px;
+ color:#b9cbe1;
+ padding:14px 8px;
+ font-size:13px;
  letter-spacing:.5px;
- transition:.25s;
+ font-weight:800;
 }
 
 .tab.active{
@@ -95,6 +213,24 @@ header{
  color:white;
 }
 
+/* PÁGINAS */
+
+.page{
+ display:none;
+ animation:pageIn .35s ease;
+}
+
+.page.active{
+ display:block;
+}
+
+@keyframes pageIn{
+ from{opacity:0;transform:translateY(8px)}
+ to{opacity:1;transform:translateY(0)}
+}
+
+/* CARDS */
+
 .card{
  position:relative;
  overflow:hidden;
@@ -102,7 +238,8 @@ header{
  border:1px solid #284566;
  border-radius:20px;
  box-shadow:0 8px 24px #0003;
- transition:transform .2s,border-color .2s;
+ padding:18px;
+ margin-bottom:14px;
 }
 
 .card::after{
@@ -124,9 +261,62 @@ header{
  letter-spacing:1px;
  color:#45d2ff;
  text-shadow:0 0 12px #1b9fff44;
+ margin-bottom:15px;
+}
+
+/* BUSCA */
+
+.search{
+ display:flex;
+ gap:8px;
+ margin-top:12px;
+}
+
+input{
+ min-width:0;
+ flex:1;
+ width:100%;
+ background:#0b1526;
+ color:white;
+ border:1px solid #34547a;
+ border-radius:12px;
+ padding:13px;
+ font-size:14px;
+}
+
+input:focus{
+ outline:none;
+ border-color:#3ecaff;
+ box-shadow:0 0 0 3px #26baff22;
+}
+
+input::placeholder{
+ color:#7d91ac;
+}
+
+button{
+ background:linear-gradient(135deg,#078de2,#5747e7);
+ border:1px solid #3caeff;
+ border-radius:12px;
+ color:white;
+ padding:12px 15px;
+ font-weight:bold;
+ letter-spacing:.5px;
+}
+
+.search button{
+ white-space:nowrap;
+}
+
+/* VENTO */
+
+.hero{
+ text-align:center;
+ padding:14px 0 20px;
 }
 
 .hero strong{
+ display:block;
  font-family:'Orbitron',sans-serif;
  font-size:clamp(45px,12vw,72px);
  background:linear-gradient(180deg,#5be1ff,#3989ff);
@@ -136,185 +326,169 @@ header{
  filter:drop-shadow(0 0 12px #159bff44);
 }
 
+.hero span{
+ color:#9fb2ca;
+ font-size:12px;
+}
+
+.desc{
+ font-size:13px;
+ color:#afc0d4;
+ line-height:1.6;
+ margin-top:10px;
+}
+
+/* METRICS */
+
+.grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+}
+
 .metric{
  background:linear-gradient(145deg,#223a59,#172840);
  border:1px solid #2e4d70;
  border-radius:14px;
+ padding:14px;
+ min-width:0;
 }
 
 .metric label{
+ display:block;
  letter-spacing:1px;
  font-size:10px;
  color:#9cbce0;
 }
 
 .metric strong{
+ display:block;
  font-family:'Orbitron',sans-serif;
  color:#eaf8ff;
  font-size:clamp(15px,4vw,21px);
+ margin-top:8px;
+ overflow-wrap:anywhere;
 }
 
-input{
- background:#0b1526;
- border:1px solid #34547a;
- border-radius:12px;
- font-family:'Rajdhani',sans-serif;
-}
-
-input:focus{
- outline:none;
- border-color:#3ecaff;
- box-shadow:0 0 0 3px #26baff22;
-}
-
-button{
- background:linear-gradient(135deg,#078de2,#5747e7);
- border:1px solid #3caeff;
- border-radius:12px;
- font-family:'Rajdhani',sans-serif;
- letter-spacing:.6px;
- transition:.2s;
-}
-
-button:active{
- transform:scale(.97);
-}
+/* STATUS */
 
 .status{
+ padding:16px;
  border-radius:14px;
+ text-align:center;
+ font-weight:bold;
+ line-height:1.5;
 }
+
+.good{
+ background:#153b35;
+ border:1px solid #286b5a;
+}
+
+.warn{
+ background:#49351a;
+ border:1px solid #936c2e;
+}
+
+.danger{
+ background:#4b202b;
+ border:1px solid #a64255;
+}
+
+.info{
+ background:#1c3048;
+ border:1px solid #355778;
+}
+
+/* INFORMAÇÕES */
 
 .recommend{
  background:linear-gradient(145deg,#203653,#16253b);
  border:1px solid #2e496b;
  border-radius:14px;
+ padding:14px;
+ margin-bottom:10px;
 }
 
 .recommend h3{
  color:#48d1ff;
  font-family:'Rajdhani',sans-serif;
  font-size:17px;
+ margin-bottom:7px;
 }
 
+.recommend p{
+ font-size:13px;
+ color:#c4d0e0;
+ line-height:1.6;
+}
+
+.notice{
+ font-size:12px;
+ color:#b3c3d6;
+ line-height:1.7;
+ margin-top:10px;
+}
+
+/* HORÁRIOS */
+
+.hour{
+ display:grid;
+ grid-template-columns:1fr 1fr 1fr;
+ gap:8px;
+ border-bottom:1px solid #2c4564;
+ padding:12px 0;
+ font-size:12px;
+ align-items:center;
+}
+
+.hour:last-child{
+ border:0;
+}
+
+.hour small{
+ color:#a5b6ca;
+ line-height:1.6;
+}
+
+/* MENSAGENS */
+
+#message,#localMessage,#loginMessage{
+ font-size:12px;
+ color:#49caff;
+ padding-top:10px;
+ line-height:1.5;
+}
+
+#localResultado{
+ overflow-wrap:anywhere;
+}
+
+/* LOJA */
+
 .buy-link{
+ display:block;
+ text-align:center;
+ text-decoration:none;
  background:linear-gradient(90deg,#00b8ff,#6551ff,#9b43ff);
- border:1px solid #7ddaff;
- box-shadow:0 0 22px #2b9dff30;
+ color:white;
+ font-weight:900;
+ padding:16px 10px;
  border-radius:14px;
  font-family:'Orbitron',sans-serif;
  font-size:12px;
  letter-spacing:.6px;
+ border:1px solid #7ddaff;
+ box-shadow:0 0 22px #2b9dff30;
+ transition:.2s;
 }
 
-.hour{
- border-bottom:1px solid #2c4564;
+.buy-link:hover{
+ filter:brightness(1.15);
+ transform:translateY(-2px);
 }
 
-footer{
- letter-spacing:1px;
-}
-
-.page{
- animation:pageIn .35s ease;
-}
-
-@keyframes pageIn{
- from{
-  opacity:0;
-  transform:translateY(8px);
- }
- to{
-  opacity:1;
-  transform:translateY(0);
- }
-}
-
-/* FUNDO DECORATIVO DE PIPAS */
-
-.kite-background{
- position:fixed;
- inset:0;
- pointer-events:none;
- overflow:hidden;
- z-index:-1;
-}
-
-.kite{
- position:absolute;
- width:46px;
- height:46px;
- transform:rotate(45deg);
- opacity:.12;
- border:2px solid #47caff;
- background:linear-gradient(135deg,#168fff,#803dff);
- box-shadow:0 0 20px #359dff33;
-}
-
-.kite::after{
- content:"";
- position:absolute;
- width:2px;
- height:95px;
- top:43px;
- left:22px;
- background:linear-gradient(#43caff,transparent);
- transform:rotate(-45deg);
-}
-
-.kite.k1{
- top:12%;
- left:4%;
- animation:floatKite 8s ease-in-out infinite;
-}
-
-.kite.k2{
- top:46%;
- right:5%;
- width:35px;
- height:35px;
- border-color:#ffcc43;
- background:linear-gradient(135deg,#ffb900,#ff5b55);
- animation:floatKite 11s ease-in-out infinite reverse;
-}
-
-.kite.k3{
- bottom:10%;
- left:12%;
- width:28px;
- height:28px;
- border-color:#c16aff;
- background:linear-gradient(135deg,#873dff,#ff4bc6);
- animation:floatKite 9s ease-in-out infinite;
-}
-
-@keyframes floatKite{
- 0%,100%{transform:rotate(45deg) translateY(0)}
- 50%{transform:rotate(48deg) translateY(-18px)}
-}
-
-/* MOBILE */
-
-@media(max-width:390px){
- header{
-  padding:16px 10px;
-  border-radius:15px;
- }
-
- .card{
-  padding:15px;
-  border-radius:17px;
- }
-
- .heading{
-  font-size:11px;
- }
-
- .tab{
-  font-size:12px;
- }
-}
-
-/* ===== LOGIN RG PIPAS ===== */
+/* LOGIN */
 
 .login-screen{
  position:fixed;
@@ -323,7 +497,7 @@ footer{
  display:flex;
  align-items:center;
  justify-content:center;
- padding:20px;
+ padding:18px;
  overflow-y:auto;
  background:
   radial-gradient(circle at 20% 20%,#0a5590 0%,transparent 35%),
@@ -334,14 +508,12 @@ footer{
 .login-box{
  width:100%;
  max-width:410px;
- padding:30px 23px;
+ padding:28px 22px;
  text-align:center;
  border:1px solid #315b89;
  border-radius:26px;
  background:linear-gradient(145deg,#152640ee,#091426f5);
- box-shadow:
- 0 0 35px #149dff22,
- 0 20px 60px #0007;
+ box-shadow:0 0 35px #149dff22,0 20px 60px #0007;
  position:relative;
  overflow:hidden;
 }
@@ -356,10 +528,11 @@ footer{
  background:#3c6dff;
  filter:blur(90px);
  opacity:.18;
+ pointer-events:none;
 }
 
 .login-kite{
- font-size:65px;
+ font-size:62px;
  margin-bottom:8px;
  filter:drop-shadow(0 0 20px #31baff66);
  animation:loginFloat 4s ease-in-out infinite;
@@ -372,7 +545,7 @@ footer{
 
 .login-brand{
  font-family:'Orbitron',sans-serif;
- font-size:29px;
+ font-size:28px;
  font-weight:900;
  letter-spacing:3px;
  color:#f5f8ff;
@@ -411,8 +584,7 @@ footer{
  margin-bottom:20px;
 }
 
-.login-google,
-.login-apple{
+.login-google,.login-apple{
  width:100%;
  height:49px;
  margin-bottom:11px;
@@ -424,7 +596,7 @@ footer{
 .login-google{
  background:#f4f7ff;
  color:#202938;
- border:1px solid #ffffff;
+ border:1px solid #fff;
 }
 
 .login-google span{
@@ -438,7 +610,7 @@ footer{
 .login-apple{
  background:#101725;
  border:1px solid #45546b;
- color:#fff;
+ color:white;
 }
 
 .login-apple span{
@@ -453,8 +625,6 @@ footer{
 }
 
 .login-email-area input{
- width:100%;
- flex:none;
  margin-bottom:10px;
  height:48px;
 }
@@ -462,7 +632,6 @@ footer{
 .login-email-area button{
  width:100%;
  height:47px;
- background:linear-gradient(90deg,#087fda,#6a42ed);
 }
 
 .guest-button{
@@ -481,276 +650,67 @@ footer{
  letter-spacing:2px;
 }
 
-#loginMessage{
- font-size:12px;
- color:#49caff;
- margin-top:12px;
- line-height:1.5;
-}
-
-@media(max-height:700px){
- .login-box{
-  padding:20px;
- }
-
- .login-kite{
-  font-size:48px;
- }
-
- .login-divider{
-  margin:13px auto;
- }
-}
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
- background:#080e19;
- color:#f4f7ff;
- font-family:Arial,sans-serif;
- padding:14px;
-}
-
-.container{max-width:700px;margin:auto}
-
-header{
- display:flex;
- justify-content:space-between;
- align-items:center;
- padding:20px 5px;
- gap:10px;
-}
-
-.logo{
- font-size:25px;
- font-weight:900;
- color:#30baff;
- letter-spacing:1px;
-}
-
-.sub{font-size:10px;color:#8ca2bd;margin-top:5px}
-.online{font-size:11px;color:#60e5a2;white-space:nowrap}
-
-.tabs{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:9px;
- margin:15px 0;
-}
-
-.tab{
- background:#17253a;
- border:1px solid #30445f;
- color:#b7c6d9;
- padding:15px 5px;
- border-radius:11px;
- font-weight:bold;
- cursor:pointer;
-}
-
-.tab.active{
- background:#087fc2;
- color:white;
- border-color:#35baff;
-}
-
-.page{display:none}
-.page.active{display:block}
-
-.card{
- background:linear-gradient(145deg,#192941,#101a2b);
- border:1px solid #2b405d;
- border-radius:15px;
- padding:18px;
- margin-bottom:14px;
-}
-
-.heading{
- color:#39baff;
- font-size:14px;
- font-weight:bold;
- margin-bottom:15px;
-}
-
-.search{
- display:flex;
- gap:8px;
- margin-top:12px;
-}
-
-input{
- min-width:0;
- flex:1;
- background:#0b1728;
- color:white;
- border:1px solid #344b68;
- border-radius:9px;
- padding:13px;
- font-size:14px;
-}
-
-button{
- border:0;
- border-radius:9px;
- padding:12px 15px;
- background:#098edb;
- color:white;
- font-weight:bold;
- cursor:pointer;
-}
-
-button:disabled{opacity:.5;cursor:wait}
-
-.hero{text-align:center;padding:14px 0 20px}
-
-.hero strong{
- display:block;
- font-size:57px;
- color:#32baff;
-}
-
-.hero span{color:#9fb2ca;font-size:12px}
-
-.desc{
- font-size:13px;
- color:#afc0d4;
- line-height:1.6;
- margin-top:10px;
-}
-
-.grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px;
-}
-
-.metric{
- background:#22344d;
- padding:14px;
- border-radius:10px;
- min-width:0;
-}
-
-.metric label{
- font-size:10px;
- color:#aebed2;
-}
-
-.metric strong{
- display:block;
- font-size:19px;
- margin-top:8px;
- overflow-wrap:anywhere;
-}
-
-.status{
- padding:16px;
- border-radius:11px;
- text-align:center;
- background:#21334a;
- font-weight:bold;
- line-height:1.5;
-}
-
-.notice{
- font-size:12px;
- color:#b3c3d6;
- line-height:1.7;
-}
-
-.good{background:#153b35;border:1px solid #286b5a}
-.warn{background:#49351a;border:1px solid #936c2e}
-.danger{background:#4b202b;border:1px solid #a64255}
-.info{background:#1c3048;border:1px solid #355778}
-
-.recommend{
- background:#213149;
- padding:14px;
- border-radius:10px;
- margin-bottom:10px;
-}
-
-.recommend h3{
- font-size:14px;
- color:#39baff;
- margin-bottom:7px;
-}
-
-.recommend p{
- font-size:13px;
- color:#c4d0e0;
- line-height:1.6;
-}
-
-.hour{
- display:grid;
- grid-template-columns:1fr 1fr 1fr;
- gap:8px;
- border-bottom:1px solid #34445b;
- padding:12px 0;
- font-size:12px;
- align-items:center;
-}
-
-.hour:last-child{border:0}
-.hour small{color:#a5b6ca;line-height:1.6}
-
-#message,#localMessage{
- font-size:12px;
- color:#39baff;
- padding-top:10px;
- line-height:1.5;
-}
-
-.buy-link{
- display:block;
- text-align:center;
- text-decoration:none;
- background:linear-gradient(90deg,#087fc2,#24baff);
- color:white;
- font-weight:900;
- padding:16px 10px;
- border-radius:11px;
- font-size:14px;
- box-shadow:0 4px 18px #087fc244;
- transition:.2s;
-}
-
-.buy-link:hover{
- filter:brightness(1.15);
- transform:translateY(-2px);
-}
-
 footer{
  text-align:center;
  color:#71849c;
  font-size:11px;
  padding:22px;
+ letter-spacing:1px;
 }
+
+/* MOBILE */
 
 @media(max-width:390px){
  body{padding:9px}
- .logo{font-size:20px}
- .hero strong{font-size:49px}
+
+ header{
+  padding:16px 10px;
+  border-radius:15px;
+ }
+
+ .logo{font-size:19px}
+
+ .card{
+  padding:15px;
+  border-radius:17px;
+ }
+
+ .heading{font-size:11px}
+
+ .tab{font-size:12px}
+
  .search{flex-wrap:wrap}
+
  .search button{width:100%}
+
  .hour{font-size:11px}
+
+ .login-box{padding:22px 17px}
+
+ .login-kite{font-size:48px}
+
+ .login-divider{margin:13px auto}
+}
+
+@media(max-height:700px){
+ .login-box{padding:18px}
+ .login-kite{font-size:45px}
+ .login-divider{margin:12px auto}
 }
 </style>
 </head>
 
 <body>
+
 <div class="kite-background">
  <div class="kite k1"></div>
  <div class="kite k2"></div>
  <div class="kite k3"></div>
 </div>
 
-<!-- TELA DE ACESSO RG PIPAS -->
+<!-- LOGIN -->
 
 <div id="loginScreen" class="login-screen">
-
  <div class="login-box">
 
   <div class="login-kite">🪁</div>
@@ -780,9 +740,7 @@ footer{
   </button>
 
   <div class="login-email-area">
-
-   <input
-    type="email"
+   <input type="email"
     id="loginEmail"
     placeholder="Seu e-mail"
     autocomplete="email">
@@ -790,7 +748,6 @@ footer{
    <button onclick="loginEmail()">
     CONTINUAR COM E-MAIL
    </button>
-
   </div>
 
   <button class="guest-button" onclick="entrarVisitante()">
@@ -802,9 +759,7 @@ footer{
   <p class="login-footer">
    RG PIPAS • WIND SYSTEM © 2026
   </p>
-
  </div>
-
 </div>
 
 <div class="container">
@@ -817,27 +772,35 @@ footer{
  <div class="online">● ONLINE</div>
 </header>
 
+<!-- ABAS -->
+
 <div class="tabs">
  <button class="tab active" onclick="abrirAba('geral',this)">
   🌤️ PREVISÃO GERAL
  </button>
+
  <button class="tab" onclick="abrirAba('local',this)">
   📍 LOCAL DE VOO
  </button>
 </div>
 
-<!-- PREVISÃO GERAL -->
+<!-- GERAL -->
 
 <section id="geral" class="page active">
 
  <div class="card">
   <div class="heading">🌎 CONSULTAR CIDADE</div>
+
   <div class="search">
    <input id="cidade"
     value="Barra Mansa, Rio de Janeiro"
     placeholder="Digite uma cidade">
-   <button id="cidadeBtn" onclick="buscar('cidade')">BUSCAR</button>
+
+   <button id="cidadeBtn" onclick="buscar('cidade')">
+    BUSCAR
+   </button>
   </div>
+
   <div id="message"></div>
  </div>
 
@@ -855,6 +818,7 @@ footer{
     <label>RAJADAS</label>
     <strong id="rajada">--</strong>
    </div>
+
    <div class="metric">
     <label>DIREÇÃO</label>
     <strong id="direcao">--</strong>
@@ -870,22 +834,27 @@ footer{
     <label>TEMPERATURA ATUAL</label>
     <strong id="temp">--</strong>
    </div>
+
    <div class="metric">
     <label>MÁXIMA DO DIA</label>
     <strong id="maxima">--</strong>
    </div>
+
    <div class="metric">
     <label>MÍNIMA DO DIA</label>
     <strong id="minima">--</strong>
    </div>
+
    <div class="metric">
     <label>UMIDADE DO AR</label>
     <strong id="umidade">--</strong>
    </div>
+
    <div class="metric">
     <label>PRESSÃO ATMOSFÉRICA</label>
     <strong id="pressao">--</strong>
    </div>
+
    <div class="metric">
     <label>CHANCE DE CHUVA AGORA</label>
     <strong id="chuva">--</strong>
@@ -893,7 +862,7 @@ footer{
   </div>
  </div>
 
- <!-- PREVISÃO DE CHUVA -->
+ <!-- CHUVA -->
 
  <div class="card">
   <div class="heading">🌧️ PREVISÃO DE CHUVA</div>
@@ -929,20 +898,22 @@ footer{
   </p>
  </div>
 
- <!-- ALERTA DE VENTO -->
+ <!-- ALERTA VENTO -->
 
  <div class="card">
   <div class="heading">⚠️ ALERTA DE VENTO</div>
+
   <div id="alerta" class="status info">
    Aguardando dados...
   </div>
+
   <p id="alertaDesc" class="desc"></p>
  </div>
 
- <!-- GUIA -->
+ <!-- INFORMAÇÕES METEOROLÓGICAS -->
 
  <div class="card">
-  <div class="heading">🪁 GUIA DE TAMANHOS</div>
+  <div class="heading">🌤️ CONDIÇÕES ATMOSFÉRICAS</div>
 
   <div id="tamanho" class="status info">
    Aguardando dados...
@@ -951,38 +922,43 @@ footer{
   <p id="tamanhoDesc" class="desc"></p>
 
   <div class="recommend" style="margin-top:12px">
-   <h3>📏 Tamanhos disponíveis</h3>
-   <p>45 cm • 50 cm • 55 cm • 60 cm • 70 cm • 80 cm • 90 cm</p>
+   <h3>🌬️ Sobre o vento</h3>
+   <p>
+    A velocidade média e as rajadas podem variar rapidamente.
+    A previsão é uma estimativa e não representa necessariamente
+    as condições exatas do local.
+   </p>
   </div>
  </div>
 
- <!-- INFORMAÇÕES SOBRE LINHAS -->
+ <!-- LINHAS -->
 
  <div class="card">
   <div class="heading">🧵 INFORMAÇÕES SOBRE LINHAS</div>
 
   <div class="recommend">
    <h3>Linha lisa</h3>
-   <p>Termo usado para descrever linhas com superfície mais regular e menor aspereza ao toque.Usadas para puxões e rancões</p>
+   <p>Termo popular usado para descrever linhas com superfície mais regular.</p>
   </div>
 
   <div class="recommend">
    <h3>Linha meio-termo</h3>
-   <p>São linhas que apresentam características intermediárias de textura. Usada geralmente para vários tipos de cruzo.</p>
+   <p>Expressão usada para linhas com características intermediárias de textura.</p>
   </div>
 
   <div class="recommend">
    <h3>Falso liso</h3>
-   <p>É um tipo de linha cuja textura pode parecer lisa, mas apresenta características diferentes. Usada geralmente para rancões e estanques com raia/pipas.</p>
+   <p>Nome popular para linhas que podem parecer lisas, mas possuem características diferentes.</p>
   </div>
 
   <div class="recommend">
    <h3>Linha áspera</h3>
-   <p>Termo usado para linhas com superfície de maior rugosidade perceptível ao toque. Usada geralmente para descarregadas, tenteio e largadas.</p>
+   <p>Descrição de linhas com maior rugosidade perceptível ao toque.</p>
   </div>
 
   <p class="notice">
-   Esses nomes são descrições populares, não uma classificação técnica padronizada. As características variam conforme o material e o fabricante. A habilidade do pipeiro também conta.
+   Esses nomes são descrições populares, não uma classificação técnica padronizada.
+   As características variam conforme o material e o fabricante.
   </p>
  </div>
 
@@ -992,24 +968,24 @@ footer{
   <div class="heading">🎋 FIBRA E ESTRUTURA</div>
 
   <div class="recommend">
-   <h3>Fibra mais flexível</h3>
-   <p>Geralmente usada para pipas muchas. Apresenta maior capacidade de flexionar. A resposta estrutural depende da espessura, do comprimento e da montagem.</p>
+   <h3>Fibra flexível</h3>
+   <p>Materiais que apresentam maior flexibilidade. O comportamento varia conforme o material e a construção.</p>
   </div>
 
   <div class="recommend">
-   <h3>Fibra mais rígida</h3>
-   <p>Apresenta menor flexibilidade e maior resistência à deformação, dependendo das características do material.</p>
+   <h3>Fibra rígida</h3>
+   <p>Materiais com menor flexibilidade, cujas características variam conforme a composição e especificações.</p>
   </div>
 
   <p class="notice">
-   A escolha deve considerar a construção da pipa e as especificações do fabricante.
+   A integridade estrutural e as condições dos materiais devem ser verificadas antes de qualquer utilização.
   </p>
  </div>
 
  <!-- PRESSÃO -->
 
  <div class="card">
-  <div class="heading">📊 PRESSÃO E CARGA NA LINHA</div>
+  <div class="heading">📊 PRESSÃO ATMOSFÉRICA</div>
 
   <div class="status info">
    Pressão atmosférica:
@@ -1017,15 +993,12 @@ footer{
   </div>
 
   <p class="desc">
-   A pressão atmosférica é diferente da força exercida pela pipa na linha. A carga na linha varia com a área da pipa, o formato, o vento, as rajadas e outros fatores.
-  </p>
-
-  <p class="desc">
-   Não existe um valor fixo em kg que possa ser calculado apenas pela velocidade do vento. Não use uma estimativa do site como limite de segurança de uma linha.
+   A pressão atmosférica representa a pressão exercida pelo ar.
+   Ela pode variar conforme altitude, temperatura e condições meteorológicas.
   </p>
  </div>
 
- <!-- PRÓXIMAS HORAS -->
+ <!-- HORAS -->
 
  <div class="card">
   <div class="heading">⏰ PRÓXIMAS 12 HORAS</div>
@@ -1034,15 +1007,16 @@ footer{
 
 </section>
 
-<!-- LOCAL DE VOO -->
+<!-- LOCAL -->
 
 <section id="local" class="page">
 
  <div class="card">
-  <div class="heading">📍 INFORME ONDE VAI SOLTAR PIPA</div>
+  <div class="heading">📍 INFORME SUA LOCALIDADE</div>
 
   <p class="notice">
-   Digite uma localidade ou utilize o GPS do celular para consultar as condições do ponto onde você está.
+   Digite um bairro, cidade ou localidade para consultar
+   as condições meteorológicas da região.
   </p>
 
   <div class="search">
@@ -1057,9 +1031,9 @@ footer{
   </button>
 
   <button id="gpsBtn"
-   style="width:100%;margin-top:10px;background:#176b48"
+   style="width:100%;margin-top:10px;background:linear-gradient(135deg,#176b48,#20a76c)"
    onclick="usarGPS()">
-   📍 USAR MINHA LOC EXATA
+   📍 USAR MINHA LOCALIZAÇÃO
   </button>
 
   <div id="localMessage"></div>
@@ -1131,7 +1105,10 @@ footer{
   <div class="heading">📌 PRECISÃO DA LOCALIZAÇÃO</div>
 
   <p class="notice">
-   A consulta por endereço utiliza a localização geográfica encontrada pelo serviço de busca e pode ser aproximada. O GPS permite consultar as coordenadas do aparelho. A previsão é uma estimativa para a região e não substitui a observação das condições reais no local.
+   A busca por endereço pode retornar uma localização aproximada.
+   O GPS utiliza as coordenadas do aparelho, quando autorizado.
+   A previsão meteorológica representa uma estimativa para a região
+   e não substitui a observação das condições reais.
   </p>
  </div>
 
@@ -1140,21 +1117,20 @@ footer{
 <!-- LOJA -->
 
 <div class="card" style="border:1px solid #168dcc">
- <div class="heading">TA PURO?😭</div>
+ <div class="heading">RG PIPAS • PARCEIROS</div>
 
  <div class="recommend">
-  <h3>💣 Linhas I.S 💣</h3>
+  <h3>🛍️ Produtos e novidades</h3>
   <p>
-   Confira as opções de linhas disponíveis pelo nosso parceiro.
+   Confira os produtos disponíveis e os links da nossa página.
   </p>
  </div>
 
- <a
-  href="https://linkbio.co/bl4cknog"
+ <a href="https://linkbio.co/bl4cknog"
   target="_blank"
   rel="noopener noreferrer"
   class="buy-link">
-  🛍️ COMPRAR LINHA COM DESCONTO
+  🛍️ ACESSAR NOSSA PÁGINA
  </a>
 
  <p class="notice" style="margin-top:12px">
@@ -1171,17 +1147,26 @@ footer{
 
 <script>
 
-// TROCAR ABAS
+/* =========================
+   SISTEMA DE ABAS
+========================= */
 
 function abrirAba(nome,botao){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+ document.querySelectorAll('.page').forEach(p=>{
+  p.classList.remove('active');
+ });
+
+ document.querySelectorAll('.tab').forEach(b=>{
+  b.classList.remove('active');
+ });
 
  document.getElementById(nome).classList.add('active');
  botao.classList.add('active');
 }
 
-// FUNÇÕES AUXILIARES
+/* =========================
+   FUNÇÕES AUXILIARES
+========================= */
 
 function numero(valor,casas=1){
  if(valor===null || valor===undefined || !Number.isFinite(Number(valor))){
@@ -1194,89 +1179,100 @@ function direcao(graus){
  if(graus===null || graus===undefined)return "--";
 
  const nomes=[
-  "Norte","Nordeste","Leste","Sudeste",
-  "Sul","Sudoeste","Oeste","Noroeste"
+  "Norte",
+  "Nordeste",
+  "Leste",
+  "Sudeste",
+  "Sul",
+  "Sudoeste",
+  "Oeste",
+  "Noroeste"
  ];
 
  return nomes[Math.round(graus/45)%8];
 }
 
-// ANÁLISE DO VENTO
+/* =========================
+   ANÁLISE DO VENTO
+========================= */
 
 function analisar(vento,rajada){
 
- if(rajada>=25 || vento>=25 || rajada-vento>=30){
+ if(vento>=40 || rajada>=55){
   return {
    titulo:"🔴 VENTO MUITO FORTE",
    classe:"danger",
-   texto:"Vento ta SINISTRO hoje,nem vai!😱"
+   texto:"Condições de vento muito intensas. Evite atividades ao ar livre e procure um local protegido."
   };
  }
 
- if(vento>=15 || rajada>=30){
+ if(vento>=25 || rajada>=40){
   return {
-   titulo:"🟠 ATENÇÃO: VENTO ELEVADO",
+   titulo:"🟠 ALERTA: VENTO ELEVADO",
    classe:"warn",
-   texto:"Vento ta forte hoje,cuidado pra não perder o dedo em🫠"
+   texto:"Vento elevado e possíveis rajadas. Tenha atenção às mudanças das condições."
   };
  }
 
- if(vento>=10 || rajada>=20){
+ if(vento>=15 || rajada>=25){
   return {
-   titulo:"🟢 VENTO PERFEITO",
+   titulo:"🟡 VENTO MODERADO A FORTE",
+   classe:"warn",
+   texto:"O vento está mais intenso. Acompanhe as rajadas e as mudanças meteorológicas."
+  };
+ }
+
+ if(vento>=5){
+  return {
+   titulo:"🟢 VENTO LEVE A MODERADO",
    classe:"good",
-   texto:"Ventinho ta filé hoje,só botar no alto e ser feliz.😁🪁"
+   texto:"Condições de vento leve a moderado neste momento. A previsão pode mudar."
   };
  }
 
- if(vento>=5 || rajada>=10){
-  return {
-  titulo:"🟡 VENTO FRACO",
-  classe:"warn",
-  texto:"Hoje a pipa só sobe no ventilador "
+ return {
+  titulo:"🔵 VENTO FRACO",
+  classe:"info",
+  texto:"O vento está fraco neste momento."
  };
 }
 
-// GUIA DE TAMANHOS
+/* =========================
+   RESUMO METEOROLÓGICO
+========================= */
 
 function guiaTamanho(vento,rajada){
 
- if(rajada>=40 || vento>=20 || rajada-vento>=30){
+ if(vento>=25 || rajada>=40){
   return {
-   titulo:"⛔ NÃO RECOMENDADO",
-   texto:"Não recomendamos soltar pipa com vento muito forte. Aguarde condições mais seguras."
+   titulo:"⚠️ CONDIÇÕES DE VENTO ELEVADO",
+   texto:"As condições estão instáveis. Priorize um ambiente seguro e acompanhe a previsão."
   };
  }
 
- if(vento<5){
+ if(vento>=15 || rajada>=25){
   return {
-   titulo:"Pipas mais leves podem ate subir,mas custara esforço!",
-   texto:"Fala pros amigos assoprar que vai🌬️💨🪁"
+   titulo:"🌬️ VENTO MODERADO A FORTE",
+   texto:"O vento pode apresentar mudanças e rajadas. Observe as condições do ambiente."
   };
  }
 
- if(vento<9){
+ if(vento>=5){
   return {
-   titulo:"REFERÊNCIA: 55 A 90 CM",
-   texto:"Tamanhos maiores apresentam maior área exposta ao vento. A adequação depende do peso e do projeto."
+   titulo:"🌤️ VENTO LEVE A MODERADO",
+   texto:"O vento está presente, mas as condições podem variar ao longo do dia."
   };
  }
 
-  if(vento>=10 || rajada>=20){
-  return {
-   titulo:"REFERÊNCIA: 45 A 70 CM",
-   texto:"Vento ótimo! Mas observe sempre as rajadas."
-  };
- }
-
- if(vento<15){
-  return {
-  titulo:"VENTO ELEVADO",
-  texto:"PIPAS DE 45 E 50 FICAM PERFEITAS NESSE VENTO,MAS EXIGE CUIDADO ⚠️ "
+ return {
+  titulo:"🍃 VENTO FRACO",
+  texto:"Pouca movimentação de ar neste momento."
  };
 }
 
-// ANÁLISE DA CHUVA
+/* =========================
+   ANÁLISE DE CHUVA
+========================= */
 
 function analisarChuva(chance,volume){
 
@@ -1288,11 +1284,11 @@ function analisarChuva(chance,volume){
   };
  }
 
- if(chance>=70 || volume>=5){
+ if(chance>=70 || volume>=10){
   return {
    titulo:"🔴 ALTA POSSIBILIDADE DE CHUVA",
    classe:"danger",
-   texto:"A previsão indica possibilidade elevada de chuva. Evite atividades ao ar livre se houver chuva ou tempestade."
+   texto:"A previsão indica possibilidade elevada de precipitação. Fique atento a mudanças no tempo."
   };
  }
 
@@ -1304,15 +1300,24 @@ function analisarChuva(chance,volume){
   };
  }
 
-  if(chance>=10 || volume>0){
+ if(chance>=10){
   return {
-  titulo:"🟢 ÓTIMO PRA SOLTAR PIPA 🪁 ",
+   titulo:"🟢 BAIXA POSSIBILIDADE DE CHUVA",
+   classe:"good",
+   texto:"A previsão indica baixa possibilidade de chuva, mas as condições podem mudar."
+  };
+ }
+
+ return {
+  titulo:"🔵 SEM CHUVA SIGNIFICATIVA PREVISTA",
   classe:"good",
-  texto:"A previsão indica baixa possibilidade de chuva neste período. As condições podem mudar."
+  texto:"A previsão atual indica baixa possibilidade de precipitação."
  };
 }
 
-// CONSULTAR API METEOROLÓGICA
+/* =========================
+   CONSULTA METEOROLÓGICA
+========================= */
 
 async function consultarCoordenadas(lat,lon,nome,localMode){
 
@@ -1343,11 +1348,15 @@ async function consultarCoordenadas(lat,lon,nome,localMode){
  mostrarDados(dados,nome,localMode);
 }
 
-// BUSCA POR CIDADE OU LOCALIDADE
+/* =========================
+   BUSCA DE LOCAL
+========================= */
 
 async function buscar(campo){
 
- const valor=document.getElementById(campo).value.trim();
+ const input=document.getElementById(campo);
+ const valor=input.value.trim();
+
  const localMode=campo==="endereco";
 
  const msg=document.getElementById(
@@ -1413,7 +1422,9 @@ async function buscar(campo){
  }
 }
 
-// CONSULTA POR GPS
+/* =========================
+   GPS
+========================= */
 
 function usarGPS(){
 
@@ -1442,11 +1453,11 @@ function usarGPS(){
     await consultarCoordenadas(
      lat,
      lon,
-     "Sua localização GPS",
+     "Localização GPS",
      true
     );
 
-    msg.textContent="Previsão do seu local atualizada!";
+    msg.textContent="Previsão do local atualizada!";
 
    }catch(e){
 
@@ -1478,12 +1489,12 @@ function usarGPS(){
    timeout:15000,
    maximumAge:60000
   }
-
  );
-
 }
 
-// MOSTRAR OS DADOS
+/* =========================
+   MOSTRAR DADOS
+========================= */
 
 function mostrarDados(d,nome,localMode){
 
@@ -1502,35 +1513,43 @@ function mostrarDados(d,nome,localMode){
  const estado=analisar(vento,rajada);
  const guia=guiaTamanho(vento,rajada);
 
- // IDENTIFICAR HORA ATUAL
+ /* Encontrar o horário atual na previsão */
 
- let indice=h.time.findIndex(t=>t>=c.time);
+ let indice=h.time.findIndex(t=>t===c.time);
+
+ if(indice<0){
+  indice=h.time.findIndex(t=>t>=c.time);
+ }
 
  if(indice<0)indice=0;
 
- // CHUVA
+ /* CHUVA */
 
  const chance=h.precipitation_probability[indice];
  const chuvaAtual=c.precipitation;
  const chuvaDia=dia.precipitation_sum[0];
  const chanceMax=dia.precipitation_probability_max[0];
-
  const chuvaAmanha=dia.precipitation_sum[1];
 
- const estadoChuva=analisarChuva(
-  chance,
-  chuvaDia
- );
+ const estadoChuva=analisarChuva(chance,chuvaDia);
 
- // ABA LOCAL
+ /* ABA LOCAL */
 
  if(localMode){
 
   document.getElementById("ventoLocal").textContent=numero(vento);
-  document.getElementById("rajadaLocal").textContent=numero(rajada)+" km/h";
-  document.getElementById("direcaoLocal").textContent=direcaoTexto;
-  document.getElementById("tempLocal").textContent=numero(temp)+" °C";
-  document.getElementById("umidadeLocal").textContent=umidade+"%";
+
+  document.getElementById("rajadaLocal").textContent=
+   numero(rajada)+" km/h";
+
+  document.getElementById("direcaoLocal").textContent=
+   direcaoTexto;
+
+  document.getElementById("tempLocal").textContent=
+   numero(temp)+" °C";
+
+  document.getElementById("umidadeLocal").textContent=
+   umidade+"%";
 
   document.getElementById("chuvaLocal").textContent=
    chance==null?"--":chance+"%";
@@ -1538,10 +1557,14 @@ function mostrarDados(d,nome,localMode){
   document.getElementById("chuvaPrevistaLocal").textContent=
    numero(chuvaDia)+" mm";
 
-  document.getElementById("alertaLocal").textContent=estado.titulo;
-  document.getElementById("alertaLocal").className="status "+estado.classe;
+  document.getElementById("alertaLocal").textContent=
+   estado.titulo;
 
-  document.getElementById("descLocal").textContent=estado.texto;
+  document.getElementById("alertaLocal").className=
+   "status "+estado.classe;
+
+  document.getElementById("descLocal").textContent=
+   estado.texto;
 
   document.getElementById("alertaChuvaLocal").textContent=
    estadoChuva.titulo;
@@ -1555,25 +1578,44 @@ function mostrarDados(d,nome,localMode){
 
   document.getElementById("localResultado").textContent=
    "Local consultado: "+nome+
-   " | Coordenadas: "+numero(d.latitude,4)+", "+numero(d.longitude,4);
+   " | Coordenadas: "+
+   numero(d.latitude,4)+", "+
+   numero(d.longitude,4);
 
   return;
  }
 
- // ABA GERAL
+ /* ABA GERAL */
 
- document.getElementById("vento").textContent=numero(vento);
- document.getElementById("rajada").textContent=numero(rajada)+" km/h";
- document.getElementById("direcao").textContent=direcaoTexto;
- document.getElementById("localNome").textContent=nome;
+ document.getElementById("vento").textContent=
+  numero(vento);
 
- document.getElementById("temp").textContent=numero(temp)+" °C";
- document.getElementById("maxima").textContent=numero(dia.temperature_2m_max[0])+" °C";
- document.getElementById("minima").textContent=numero(dia.temperature_2m_min[0])+" °C";
+ document.getElementById("rajada").textContent=
+  numero(rajada)+" km/h";
 
- document.getElementById("umidade").textContent=umidade+"%";
- document.getElementById("pressao").textContent=numero(pressao)+" hPa";
- document.getElementById("pressaoResumo").textContent=numero(pressao)+" hPa";
+ document.getElementById("direcao").textContent=
+  direcaoTexto;
+
+ document.getElementById("localNome").textContent=
+  nome;
+
+ document.getElementById("temp").textContent=
+  numero(temp)+" °C";
+
+ document.getElementById("maxima").textContent=
+  numero(dia.temperature_2m_max[0])+" °C";
+
+ document.getElementById("minima").textContent=
+  numero(dia.temperature_2m_min[0])+" °C";
+
+ document.getElementById("umidade").textContent=
+  umidade+"%";
+
+ document.getElementById("pressao").textContent=
+  numero(pressao)+" hPa";
+
+ document.getElementById("pressaoResumo").textContent=
+  numero(pressao)+" hPa";
 
  document.getElementById("chuva").textContent=
   chance==null?"--":chance+"%";
@@ -1590,7 +1632,7 @@ function mostrarDados(d,nome,localMode){
  document.getElementById("chuvaAmanha").textContent=
   numero(chuvaAmanha)+" mm";
 
- // ALERTA DE CHUVA
+ /* ALERTA DE CHUVA */
 
  document.getElementById("alertaChuva").textContent=
   estadoChuva.titulo;
@@ -1602,30 +1644,35 @@ function mostrarDados(d,nome,localMode){
   estadoChuva.texto+
   " Precipitação prevista hoje: "+numero(chuvaDia)+" mm."+
   " Chance máxima de chuva: "+
-  (chanceMax==null?"indisponível":chanceMax+"%")+
-  ".";
+  (chanceMax==null?"indisponível":chanceMax+"%")+".";
 
- // ALERTA DE VENTO
+ /* ALERTA DE VENTO */
 
- document.getElementById("alerta").textContent=estado.titulo;
- document.getElementById("alerta").className="status "+estado.classe;
- document.getElementById("alertaDesc").textContent=estado.texto;
+ document.getElementById("alerta").textContent=
+  estado.titulo;
 
- // GUIA
+ document.getElementById("alerta").className=
+  "status "+estado.classe;
 
- document.getElementById("tamanho").textContent=guia.titulo;
- document.getElementById("tamanho").className="status info";
- document.getElementById("tamanhoDesc").textContent=guia.texto;
+ document.getElementById("alertaDesc").textContent=
+  estado.texto;
 
- // PRÓXIMAS 12 HORAS
+ /* RESUMO ATMOSFÉRICO */
+
+ document.getElementById("tamanho").textContent=
+  guia.titulo;
+
+ document.getElementById("tamanho").className=
+  "status info";
+
+ document.getElementById("tamanhoDesc").textContent=
+  guia.texto;
+
+ /* PRÓXIMAS 12 HORAS */
 
  let html="";
 
- for(
-  let i=indice;
-  i<Math.min(h.time.length,indice+12);
-  i++
- ){
+ for(let i=indice;i<Math.min(h.time.length,indice+12);i++){
 
   const hora=h.time[i].slice(11,16);
 
@@ -1640,25 +1687,28 @@ function mostrarDados(d,nome,localMode){
     "<span><b>"+hora+"</b><br>"+
     "<small>Vento: "+ventoHora+" km/h</small></span>"+
 
-    "<span><small>Rajada:<br>"+rajadaHora+" km/h</small></span>"+
+    "<span><small>Rajada:<br>"+
+    rajadaHora+" km/h</small></span>"+
 
     "<span><small>🌧️ "+
     (chanceHora==null?"--":chanceHora+"%")+
     "<br>"+numero(chuvaHora)+" mm</small></span>"+
    "</div>";
-
  }
 
  document.getElementById("horarios").innerHTML=
   html||"Previsão horária indisponível.";
-
 }
 
-// CONSULTA INICIAL
+/* =========================
+   INICIALIZAÇÃO
+========================= */
 
 buscar("cidade");
 
-// SERVICE WORKER PARA PWA
+/* =========================
+   SERVICE WORKER
+========================= */
 
 if("serviceWorker" in navigator){
 
@@ -1668,13 +1718,16 @@ if("serviceWorker" in navigator){
    .catch(err=>console.log("Erro no Service Worker:",err));
 
  });
-
 }
 
-// ===== SISTEMA DE ENTRADA =====
+/* =========================
+   SISTEMA DE ENTRADA
+========================= */
 
 function entrarVisitante(){
+
  const tela=document.getElementById("loginScreen");
+
  tela.style.opacity="0";
  tela.style.transition="opacity .35s";
 
@@ -1684,18 +1737,20 @@ function entrarVisitante(){
 }
 
 function loginGoogle(){
+
  document.getElementById("loginMessage").textContent=
- "Login Google ainda precisa de configuração de autenticação.";
+ "O acesso Google precisa ser conectado a um sistema de autenticação.";
 }
 
 function loginApple(){
+
  document.getElementById("loginMessage").textContent=
- "Login Apple ainda precisa de configuração de autenticação.";
+ "O acesso Apple precisa ser conectado a um sistema de autenticação.";
 }
 
 function loginEmail(){
- const email=document.getElementById("loginEmail").value.trim();
 
+ const email=document.getElementById("loginEmail").value.trim();
  const msg=document.getElementById("loginMessage");
 
  if(!email){
@@ -1709,7 +1764,7 @@ function loginEmail(){
  }
 
  msg.textContent=
- "Sistema de autenticação por e-mail ainda não configurado.";
+ "O login por e-mail ainda precisa de um serviço de autenticação.";
 }
 
 </script>

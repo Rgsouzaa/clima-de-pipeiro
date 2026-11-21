@@ -697,9 +697,235 @@ footer{
  .login-kite{font-size:45px}
  .login-divider{margin:12px auto}
 }
+
+/* SISTEMA DE LOGIN RG PIPAS */
+
+.auth-switch{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:7px;
+ padding:5px;
+ background:#091426;
+ border:1px solid #2a4264;
+ border-radius:13px;
+ margin-bottom:17px;
+}
+
+.auth-tab{
+ background:transparent;
+ border:1px solid transparent;
+ color:#8da6c5;
+ padding:12px 6px;
+ font-size:12px;
+ border-radius:10px;
+}
+
+.auth-tab.active{
+ background:linear-gradient(135deg,#078de2,#5747e7);
+ color:white;
+ border-color:#48caff;
+ box-shadow:0 0 15px #168bff33;
+}
+
+#formLogin,
+#formCadastro{
+ text-align:left;
+}
+
+#formLogin input,
+#formCadastro input{
+ width:100%;
+ height:50px;
+ margin-bottom:11px;
+ padding:0 14px;
+ background:#0b1526;
+ color:white;
+ border:1px solid #34547a;
+ border-radius:12px;
+ font-size:14px;
+}
+
+#formLogin input:focus,
+#formCadastro input:focus{
+ outline:none;
+ border-color:#36caff;
+ box-shadow:0 0 12px #29aaff22;
+}
+
+.auth-main-button{
+ width:100%;
+ height:51px;
+ margin-top:4px;
+ background:linear-gradient(110deg,#078fe8,#6044ec);
+ border:1px solid #55c9ff;
+ border-radius:13px;
+ color:white;
+ font-family:'Orbitron',sans-serif;
+ font-size:12px;
+ font-weight:800;
+ letter-spacing:1px;
+ box-shadow:0 0 20px #318bff25;
+}
+
+.forgot-button{
+ display:block;
+ width:100%;
+ background:transparent;
+ border:none;
+ color:#62cfff;
+ padding:14px 5px;
+ font-size:11px;
+}
+
+.auth-separator{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ margin:18px 0 5px;
+ color:#627d9d;
+ font-size:10px;
+ letter-spacing:2px;
+}
+
+.auth-separator::before,
+.auth-separator::after{
+ content:"";
+ flex:1;
+ height:1px;
+ background:#30445f;
+}
+
+#loginMessage{
+ min-height:20px;
+ text-align:center;
+}
+
+.guest-button{
+ width:100%;
+ padding:14px;
+ border-radius:12px;
+}
+
+.auth-main-button:disabled{
+ opacity:.5;
+}
+
+/* SISTEMA DE LOGIN RG PIPAS */
+
+.auth-switch{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:7px;
+ padding:5px;
+ background:#091426;
+ border:1px solid #2a4264;
+ border-radius:13px;
+ margin-bottom:17px;
+}
+
+.auth-tab{
+ background:transparent;
+ border:1px solid transparent;
+ color:#8da6c5;
+ padding:12px 6px;
+ font-size:12px;
+ border-radius:10px;
+}
+
+.auth-tab.active{
+ background:linear-gradient(135deg,#078de2,#5747e7);
+ color:white;
+ border-color:#48caff;
+ box-shadow:0 0 15px #168bff33;
+}
+
+#formLogin,
+#formCadastro{
+ text-align:left;
+}
+
+#formLogin input,
+#formCadastro input{
+ width:100%;
+ height:50px;
+ margin-bottom:11px;
+ padding:0 14px;
+ background:#0b1526;
+ color:white;
+ border:1px solid #34547a;
+ border-radius:12px;
+ font-size:14px;
+}
+
+#formLogin input:focus,
+#formCadastro input:focus{
+ outline:none;
+ border-color:#36caff;
+ box-shadow:0 0 12px #29aaff22;
+}
+
+.auth-main-button{
+ width:100%;
+ height:51px;
+ margin-top:4px;
+ background:linear-gradient(110deg,#078fe8,#6044ec);
+ border:1px solid #55c9ff;
+ border-radius:13px;
+ color:white;
+ font-family:'Orbitron',sans-serif;
+ font-size:12px;
+ font-weight:800;
+ letter-spacing:1px;
+ box-shadow:0 0 20px #318bff25;
+}
+
+.forgot-button{
+ display:block;
+ width:100%;
+ background:transparent;
+ border:none;
+ color:#62cfff;
+ padding:14px 5px;
+ font-size:11px;
+}
+
+.auth-separator{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ margin:18px 0 5px;
+ color:#627d9d;
+ font-size:10px;
+ letter-spacing:2px;
+}
+
+.auth-separator::before,
+.auth-separator::after{
+ content:"";
+ flex:1;
+ height:1px;
+ background:#30445f;
+}
+
+#loginMessage{
+ min-height:20px;
+ text-align:center;
+}
+
+.guest-button{
+ width:100%;
+ padding:14px;
+ border-radius:12px;
+}
+
+.auth-main-button:disabled{
+ opacity:.5;
+}
 </style>
 </head>
 
+<script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-auth-compat.js"></script>
 <body>
 
 <div class="kite-background">
@@ -708,7 +934,7 @@ footer{
  <div class="kite k3"></div>
 </div>
 
-<!-- LOGIN -->
+<!-- LOGIN RG PIPAS -->
 
 <div id="loginScreen" class="login-screen">
  <div class="login-box">
@@ -731,46 +957,94 @@ footer{
    O céu é o limite.
   </p>
 
-  <button class="login-google" onclick="loginGoogle()">
-   <span>G</span> CONTINUAR COM GOOGLE
-  </button>
+  <!-- ALTERNAR LOGIN / CADASTRO -->
 
-  <button class="login-apple" onclick="loginApple()">
-   <span>●</span> CONTINUAR COM APPLE
-  </button>
+  <div class="auth-switch">
+   <button id="tabEntrar" class="auth-tab active"
+    onclick="mostrarLogin()">
+    ENTRAR
+   </button>
 
-  <div class="login-email-area">
-   <input type="email"
-    id="loginEmail"
-    placeholder="Seu e-mail"
-    autocomplete="email">
-
-   <button onclick="loginEmail()">
-    CONTINUAR COM E-MAIL
+   <button id="tabCadastro" class="auth-tab"
+    onclick="mostrarCadastro()">
+    CRIAR CONTA
    </button>
   </div>
 
-  <button class="guest-button" onclick="entrarVisitante()">
-   ENTRAR COMO VISITANTE
-  </button>
+  <!-- FORMULÁRIO LOGIN -->
+
+  <div id="formLogin">
+
+   <input id="emailLogin"
+    type="email"
+    placeholder="Seu e-mail"
+    autocomplete="email">
+
+   <input id="senhaLogin"
+    type="password"
+    placeholder="Sua senha"
+    autocomplete="current-password">
+
+   <button class="auth-main-button"
+    onclick="entrarConta()">
+    ENTRAR NA CONTA
+   </button>
+
+   <button class="forgot-button"
+    onclick="recuperarSenha()">
+    ESQUECI MINHA SENHA
+   </button>
+
+  </div>
+
+  <!-- FORMULÁRIO CADASTRO -->
+
+  <div id="formCadastro" style="display:none">
+
+   <input id="nomeCadastro"
+    type="text"
+    placeholder="Seu nome"
+    autocomplete="name">
+
+   <input id="emailCadastro"
+    type="email"
+    placeholder="Seu e-mail"
+    autocomplete="email">
+
+   <input id="senhaCadastro"
+    type="password"
+    placeholder="Crie uma senha"
+    autocomplete="new-password">
+
+   <input id="confirmarSenha"
+    type="password"
+    placeholder="Confirme sua senha"
+    autocomplete="new-password">
+
+   <button class="auth-main-button"
+    onclick="criarConta()">
+    CRIAR MINHA CONTA
+   </button>
+
+  </div>
 
   <div id="loginMessage"></div>
+
+  <div class="auth-separator">
+   <span>OU</span>
+  </div>
+
+  <button class="guest-button"
+   onclick="entrarVisitante()">
+   ENTRAR COMO VISITANTE
+  </button>
 
   <p class="login-footer">
    RG PIPAS • WIND SYSTEM © 2026
   </p>
+
  </div>
 </div>
-
-<div class="container">
-
-<header>
- <div>
-  <div class="logo">🪁 TEMPO PARA PIPEIROS</div>
-  <div class="sub">WIND SYSTEM • RG PIPAS</div>
- </div>
- <div class="online">● ONLINE</div>
-</header>
 
 <!-- ABAS -->
 
@@ -1721,53 +1995,237 @@ if("serviceWorker" in navigator){
 }
 
 /* =========================
-   SISTEMA DE ENTRADA
+   AUTENTICAÇÃO RG PIPAS
+========================= */
+
+// COLOQUE A CONFIGURAÇÃO DO SEU FIREBASE AQUI
+
+const firebaseConfig = {
+ apiKey: "AIzaSyDBTIaCeYzeBQSvZNxV1Jm8qabYPhZTAM0",
+ authDomain: "rg-pipas.firebaseapp.com",
+ projectId: "rg-pipas",
+ appId: "1:472917222064:web:6e75689869cdb58937d175"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+
+/* =========================
+   ALTERNAR TELAS
+========================= */
+
+function mostrarLogin(){
+
+ document.getElementById("formLogin").style.display="block";
+ document.getElementById("formCadastro").style.display="none";
+
+ document.getElementById("tabEntrar").classList.add("active");
+ document.getElementById("tabCadastro").classList.remove("active");
+
+ document.getElementById("loginMessage").textContent="";
+}
+
+function mostrarCadastro(){
+
+ document.getElementById("formLogin").style.display="none";
+ document.getElementById("formCadastro").style.display="block";
+
+ document.getElementById("tabCadastro").classList.add("active");
+ document.getElementById("tabEntrar").classList.remove("active");
+
+ document.getElementById("loginMessage").textContent="";
+}
+
+
+/* =========================
+   MENSAGENS
+========================= */
+
+function mensagemAuth(texto){
+
+ document.getElementById("loginMessage").textContent=texto;
+}
+
+
+/* =========================
+   CRIAR CONTA
+========================= */
+
+async function criarConta(){
+
+ const nome=document.getElementById("nomeCadastro").value.trim();
+ const email=document.getElementById("emailCadastro").value.trim();
+ const senha=document.getElementById("senhaCadastro").value;
+ const confirmar=document.getElementById("confirmarSenha").value;
+
+ if(!nome || !email || !senha || !confirmar){
+  mensagemAuth("Preencha todos os campos.");
+  return;
+ }
+
+ if(senha.length<6){
+  mensagemAuth("A senha precisa ter pelo menos 6 caracteres.");
+  return;
+ }
+
+ if(senha!==confirmar){
+  mensagemAuth("As senhas não são iguais.");
+  return;
+ }
+
+ mensagemAuth("Criando sua conta...");
+
+ try{
+
+  const resultado=await auth.createUserWithEmailAndPassword(email,senha);
+
+  await resultado.user.updateProfile({
+   displayName:nome
+  });
+
+  mensagemAuth("Conta criada com sucesso!");
+
+  abrirAplicativo();
+
+ }catch(e){
+
+  if(e.code==="auth/email-already-in-use"){
+   mensagemAuth("Esse e-mail já possui uma conta.");
+  }else if(e.code==="auth/invalid-email"){
+   mensagemAuth("E-mail inválido.");
+  }else if(e.code==="auth/weak-password"){
+   mensagemAuth("Escolha uma senha mais forte.");
+  }else{
+   mensagemAuth("Não foi possível criar a conta. Tente novamente.");
+   console.error(e);
+  }
+ }
+}
+
+
+/* =========================
+   ENTRAR
+========================= */
+
+async function entrarConta(){
+
+ const email=document.getElementById("emailLogin").value.trim();
+ const senha=document.getElementById("senhaLogin").value;
+
+ if(!email || !senha){
+  mensagemAuth("Digite seu e-mail e sua senha.");
+  return;
+ }
+
+ mensagemAuth("Verificando acesso...");
+
+ try{
+
+  await auth.signInWithEmailAndPassword(email,senha);
+
+  mensagemAuth("Login realizado!");
+
+  abrirAplicativo();
+
+ }catch(e){
+
+  if(
+   e.code==="auth/invalid-credential" ||
+   e.code==="auth/user-not-found" ||
+   e.code==="auth/wrong-password"
+  ){
+   mensagemAuth("E-mail ou senha incorretos.");
+  }else{
+   mensagemAuth("Não foi possível entrar. Verifique sua conexão.");
+   console.error(e);
+  }
+ }
+}
+
+
+/* =========================
+   RECUPERAR SENHA
+========================= */
+
+async function recuperarSenha(){
+
+ const email=document.getElementById("emailLogin").value.trim();
+
+ if(!email){
+  mensagemAuth("Digite seu e-mail primeiro.");
+  return;
+ }
+
+ try{
+
+  await auth.sendPasswordResetEmail(email);
+
+  mensagemAuth("Se o e-mail estiver cadastrado, enviaremos a recuperação.");
+
+ }catch(e){
+
+  mensagemAuth("Não foi possível solicitar a recuperação.");
+  console.error(e);
+ }
+}
+
+
+/* =========================
+   VISITANTE
 ========================= */
 
 function entrarVisitante(){
 
+ sessionStorage.setItem("rg_visitante","true");
+
+ abrirAplicativo();
+}
+
+
+/* =========================
+   ABRIR APP
+========================= */
+
+function abrirAplicativo(){
+
  const tela=document.getElementById("loginScreen");
 
  tela.style.opacity="0";
- tela.style.transition="opacity .35s";
+ tela.style.transition="opacity .3s";
 
  setTimeout(()=>{
   tela.style.display="none";
- },350);
+  tela.style.opacity="1";
+ },300);
 }
 
-function loginGoogle(){
 
- document.getElementById("loginMessage").textContent=
- "O acesso Google precisa ser conectado a um sistema de autenticação.";
-}
+/* =========================
+   VERIFICAR SESSÃO
+========================= */
 
-function loginApple(){
+auth.onAuthStateChanged(user=>{
 
- document.getElementById("loginMessage").textContent=
- "O acesso Apple precisa ser conectado a um sistema de autenticação.";
-}
+ if(user){
 
-function loginEmail(){
+  abrirAplicativo();
 
- const email=document.getElementById("loginEmail").value.trim();
- const msg=document.getElementById("loginMessage");
+ }else if(sessionStorage.getItem("rg_visitante")==="true"){
 
- if(!email){
-  msg.textContent="Digite seu e-mail para continuar.";
-  return;
+  abrirAplicativo();
+
  }
 
- if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-  msg.textContent="Digite um endereço de e-mail válido.";
-  return;
- }
-
- msg.textContent=
- "O login por e-mail ainda precisa de um serviço de autenticação.";
-}
+});
 
 </script>
+
+<script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-auth-compat.js"></script>
 
 </body>
 </html>

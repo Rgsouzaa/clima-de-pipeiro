@@ -1222,11 +1222,18 @@ function analisar(vento,rajada){
   };
  }
 
- if(vento>=5 || rajada>=10){
+ if(vento>=5 || rajada>=5){
   return {
   titulo:"🟡 VENTO FRACO",
   classe:"warn",
   texto:"Hoje a pipa só sobe no ventilador "
+ };
+}
+
+return {
+  titulo:"🔵 VENTO MUITO FRACO",
+  classe:"info",
+  texto:"Pouca movimentação de ar neste momento."
  };
 }
 

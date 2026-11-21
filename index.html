@@ -1198,42 +1198,35 @@ function direcao(graus){
 
 function analisar(vento,rajada){
 
- if(vento>=40 || rajada>=55){
+ if(rajada>=25 || vento>=25 || rajada-vento>=30){
   return {
    titulo:"🔴 VENTO MUITO FORTE",
    classe:"danger",
-   texto:"Condições de vento muito intensas. Evite atividades ao ar livre e procure um local protegido."
+   texto:"Vento ta SINISTRO hoje,nem vai!😱"
   };
  }
 
- if(vento>=25 || rajada>=40){
+ if(vento>=15 || rajada>=30){
   return {
-   titulo:"🟠 ALERTA: VENTO ELEVADO",
+   titulo:"🟠 ATENÇÃO: VENTO ELEVADO",
    classe:"warn",
-   texto:"Vento elevado e possíveis rajadas. Tenha atenção às mudanças das condições."
+   texto:"Vento ta forte hoje,cuidado pra não perder o dedo em🫠"
   };
  }
 
- if(vento>=15 || rajada>=25){
+ if(vento>=10 || rajada>=20){
   return {
-   titulo:"🟡 VENTO MODERADO A FORTE",
-   classe:"warn",
-   texto:"O vento está mais intenso. Acompanhe as rajadas e as mudanças meteorológicas."
-  };
- }
-
- if(vento>=5){
-  return {
-   titulo:"🟢 VENTO LEVE A MODERADO",
+   titulo:"🟢 VENTO PERFEITO",
    classe:"good",
-   texto:"Condições de vento leve a moderado neste momento. A previsão pode mudar."
+   texto:"Ventinho ta filé hoje,só botar no alto e ser feliz.😁🪁"
   };
  }
 
- return {
-  titulo:"🔵 VENTO FRACO",
-  classe:"info",
-  texto:"O vento está fraco neste momento."
+ if(vento>=5 || rajada>=10){
+  return {
+  titulo:"🟡 VENTO FRACO",
+  classe:"warn",
+  texto:"Hoje a pipa só sobe no ventilador "
  };
 }
 

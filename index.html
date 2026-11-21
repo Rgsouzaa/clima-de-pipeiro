@@ -1,3 +1,4 @@
+Tempo pipeiros
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,6 +11,496 @@
 
 <title>Tempo Para Pipeiros | RG Pipas</title>
 <link rel="manifest" href="manifest.json">
+
+/* ===== REPAGINAÇÃO RG PIPAS ===== */
+
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap');
+
+body{
+ background:
+  radial-gradient(circle at 10% 10%, #102b55 0%, transparent 35%),
+  radial-gradient(circle at 90% 80%, #35135f 0%, transparent 32%),
+  #070b16;
+ font-family:'Rajdhani',sans-serif;
+ overflow-x:hidden;
+}
+
+body::before{
+ content:"";
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ z-index:-1;
+ opacity:.12;
+ background-image:
+  radial-gradient(#42caff 1px, transparent 1px);
+ background-size:22px 22px;
+}
+
+.container{
+ max-width:760px;
+ position:relative;
+}
+
+header{
+ padding:24px 12px;
+ background:linear-gradient(135deg,#101e38aa,#162a49aa);
+ border:1px solid #29466b;
+ border-radius:18px;
+ box-shadow:0 0 25px #087fc222;
+ margin-bottom:20px;
+}
+
+.logo{
+ font-family:'Orbitron',sans-serif;
+ font-size:clamp(17px,4vw,26px);
+ font-weight:800;
+ background:linear-gradient(90deg,#37cfff,#a675ff,#ffe259);
+ -webkit-background-clip:text;
+ background-clip:text;
+ color:transparent;
+ letter-spacing:1px;
+}
+
+.sub{
+ letter-spacing:2px;
+ color:#a4b9dc;
+}
+
+.online{
+ background:#103a32;
+ padding:7px 10px;
+ border-radius:20px;
+ border:1px solid #247e61;
+}
+
+.tabs{
+ gap:12px;
+}
+
+.tab{
+ background:linear-gradient(145deg,#142440,#10192a);
+ border:1px solid #2c4669;
+ border-radius:14px;
+ font-family:'Rajdhani',sans-serif;
+ font-size:14px;
+ letter-spacing:.5px;
+ transition:.25s;
+}
+
+.tab.active{
+ background:linear-gradient(135deg,#087fe0,#6544e8);
+ border-color:#57d5ff;
+ box-shadow:0 0 18px #159bff44;
+ color:white;
+}
+
+.card{
+ position:relative;
+ overflow:hidden;
+ background:linear-gradient(145deg,#14243aee,#0d1728f5);
+ border:1px solid #284566;
+ border-radius:20px;
+ box-shadow:0 8px 24px #0003;
+ transition:transform .2s,border-color .2s;
+}
+
+.card::after{
+ content:"";
+ position:absolute;
+ width:130px;
+ height:130px;
+ right:-65px;
+ top:-65px;
+ border-radius:50%;
+ background:#29baff;
+ opacity:.045;
+ pointer-events:none;
+}
+
+.heading{
+ font-family:'Orbitron',sans-serif;
+ font-size:12px;
+ letter-spacing:1px;
+ color:#45d2ff;
+ text-shadow:0 0 12px #1b9fff44;
+}
+
+.hero strong{
+ font-family:'Orbitron',sans-serif;
+ font-size:clamp(45px,12vw,72px);
+ background:linear-gradient(180deg,#5be1ff,#3989ff);
+ -webkit-background-clip:text;
+ background-clip:text;
+ color:transparent;
+ filter:drop-shadow(0 0 12px #159bff44);
+}
+
+.metric{
+ background:linear-gradient(145deg,#223a59,#172840);
+ border:1px solid #2e4d70;
+ border-radius:14px;
+}
+
+.metric label{
+ letter-spacing:1px;
+ font-size:10px;
+ color:#9cbce0;
+}
+
+.metric strong{
+ font-family:'Orbitron',sans-serif;
+ color:#eaf8ff;
+ font-size:clamp(15px,4vw,21px);
+}
+
+input{
+ background:#0b1526;
+ border:1px solid #34547a;
+ border-radius:12px;
+ font-family:'Rajdhani',sans-serif;
+}
+
+input:focus{
+ outline:none;
+ border-color:#3ecaff;
+ box-shadow:0 0 0 3px #26baff22;
+}
+
+button{
+ background:linear-gradient(135deg,#078de2,#5747e7);
+ border:1px solid #3caeff;
+ border-radius:12px;
+ font-family:'Rajdhani',sans-serif;
+ letter-spacing:.6px;
+ transition:.2s;
+}
+
+button:active{
+ transform:scale(.97);
+}
+
+.status{
+ border-radius:14px;
+}
+
+.recommend{
+ background:linear-gradient(145deg,#203653,#16253b);
+ border:1px solid #2e496b;
+ border-radius:14px;
+}
+
+.recommend h3{
+ color:#48d1ff;
+ font-family:'Rajdhani',sans-serif;
+ font-size:17px;
+}
+
+.buy-link{
+ background:linear-gradient(90deg,#00b8ff,#6551ff,#9b43ff);
+ border:1px solid #7ddaff;
+ box-shadow:0 0 22px #2b9dff30;
+ border-radius:14px;
+ font-family:'Orbitron',sans-serif;
+ font-size:12px;
+ letter-spacing:.6px;
+}
+
+.hour{
+ border-bottom:1px solid #2c4564;
+}
+
+footer{
+ letter-spacing:1px;
+}
+
+.page{
+ animation:pageIn .35s ease;
+}
+
+@keyframes pageIn{
+ from{
+  opacity:0;
+  transform:translateY(8px);
+ }
+ to{
+  opacity:1;
+  transform:translateY(0);
+ }
+}
+
+/* FUNDO DECORATIVO DE PIPAS */
+
+.kite-background{
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ overflow:hidden;
+ z-index:-1;
+}
+
+.kite{
+ position:absolute;
+ width:46px;
+ height:46px;
+ transform:rotate(45deg);
+ opacity:.12;
+ border:2px solid #47caff;
+ background:linear-gradient(135deg,#168fff,#803dff);
+ box-shadow:0 0 20px #359dff33;
+}
+
+.kite::after{
+ content:"";
+ position:absolute;
+ width:2px;
+ height:95px;
+ top:43px;
+ left:22px;
+ background:linear-gradient(#43caff,transparent);
+ transform:rotate(-45deg);
+}
+
+.kite.k1{
+ top:12%;
+ left:4%;
+ animation:floatKite 8s ease-in-out infinite;
+}
+
+.kite.k2{
+ top:46%;
+ right:5%;
+ width:35px;
+ height:35px;
+ border-color:#ffcc43;
+ background:linear-gradient(135deg,#ffb900,#ff5b55);
+ animation:floatKite 11s ease-in-out infinite reverse;
+}
+
+.kite.k3{
+ bottom:10%;
+ left:12%;
+ width:28px;
+ height:28px;
+ border-color:#c16aff;
+ background:linear-gradient(135deg,#873dff,#ff4bc6);
+ animation:floatKite 9s ease-in-out infinite;
+}
+
+@keyframes floatKite{
+ 0%,100%{transform:rotate(45deg) translateY(0)}
+ 50%{transform:rotate(48deg) translateY(-18px)}
+}
+
+/* MOBILE */
+
+@media(max-width:390px){
+ header{
+  padding:16px 10px;
+  border-radius:15px;
+ }
+
+ .card{
+  padding:15px;
+  border-radius:17px;
+ }
+
+ .heading{
+  font-size:11px;
+ }
+
+ .tab{
+  font-size:12px;
+ }
+}
+
+/* ===== LOGIN RG PIPAS ===== */
+
+.login-screen{
+ position:fixed;
+ inset:0;
+ z-index:9999;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+ overflow-y:auto;
+ background:
+  radial-gradient(circle at 20% 20%,#0a5590 0%,transparent 35%),
+  radial-gradient(circle at 80% 75%,#5523a0 0%,transparent 38%),
+  linear-gradient(145deg,#050914,#0b1325,#080a16);
+}
+
+.login-box{
+ width:100%;
+ max-width:410px;
+ padding:30px 23px;
+ text-align:center;
+ border:1px solid #315b89;
+ border-radius:26px;
+ background:linear-gradient(145deg,#152640ee,#091426f5);
+ box-shadow:
+ 0 0 35px #149dff22,
+ 0 20px 60px #0007;
+ position:relative;
+ overflow:hidden;
+}
+
+.login-box::before{
+ content:"";
+ position:absolute;
+ top:-90px;
+ right:-90px;
+ width:200px;
+ height:200px;
+ background:#3c6dff;
+ filter:blur(90px);
+ opacity:.18;
+}
+
+.login-kite{
+ font-size:65px;
+ margin-bottom:8px;
+ filter:drop-shadow(0 0 20px #31baff66);
+ animation:loginFloat 4s ease-in-out infinite;
+}
+
+@keyframes loginFloat{
+ 0%,100%{transform:translateY(0) rotate(-4deg)}
+ 50%{transform:translateY(-9px) rotate(4deg)}
+}
+
+.login-brand{
+ font-family:'Orbitron',sans-serif;
+ font-size:29px;
+ font-weight:900;
+ letter-spacing:3px;
+ color:#f5f8ff;
+}
+
+.login-brand span{
+ color:#35caff;
+}
+
+.login-box h1{
+ font-family:'Orbitron',sans-serif;
+ font-size:15px;
+ margin-top:17px;
+ color:#4bd0ff;
+ letter-spacing:1.5px;
+}
+
+.login-subtitle{
+ font-size:10px;
+ color:#9bb4d2;
+ letter-spacing:3px;
+ margin-top:9px;
+}
+
+.login-divider{
+ width:65px;
+ height:3px;
+ margin:20px auto;
+ border-radius:10px;
+ background:linear-gradient(90deg,#2bc8ff,#8c50ff,#ffd43b);
+}
+
+.login-welcome{
+ color:#d6e5ff;
+ font-size:15px;
+ margin-bottom:20px;
+}
+
+.login-google,
+.login-apple{
+ width:100%;
+ height:49px;
+ margin-bottom:11px;
+ border-radius:13px;
+ font-size:13px;
+ font-weight:800;
+}
+
+.login-google{
+ background:#f4f7ff;
+ color:#202938;
+ border:1px solid #ffffff;
+}
+
+.login-google span{
+ font-family:Arial,sans-serif;
+ font-size:19px;
+ font-weight:900;
+ color:#4285f4;
+ margin-right:8px;
+}
+
+.login-apple{
+ background:#101725;
+ border:1px solid #45546b;
+ color:#fff;
+}
+
+.login-apple span{
+ font-size:17px;
+ margin-right:8px;
+}
+
+.login-email-area{
+ margin-top:14px;
+ padding-top:14px;
+ border-top:1px solid #30445f;
+}
+
+.login-email-area input{
+ width:100%;
+ flex:none;
+ margin-bottom:10px;
+ height:48px;
+}
+
+.login-email-area button{
+ width:100%;
+ height:47px;
+ background:linear-gradient(90deg,#087fda,#6a42ed);
+}
+
+.guest-button{
+ width:100%;
+ margin-top:13px;
+ background:transparent;
+ border:1px solid #334a69;
+ color:#9eb5d2;
+ font-size:12px;
+}
+
+.login-footer{
+ margin-top:22px;
+ color:#627c9b;
+ font-size:9px;
+ letter-spacing:2px;
+}
+
+#loginMessage{
+ font-size:12px;
+ color:#49caff;
+ margin-top:12px;
+ line-height:1.5;
+}
+
+@media(max-height:700px){
+ .login-box{
+  padding:20px;
+ }
+
+ .login-kite{
+  font-size:48px;
+ }
+
+ .login-divider{
+  margin:13px auto;
+ }
+}
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -250,6 +741,72 @@ footer{
 </head>
 
 <body>
+<div class="kite-background">
+ <div class="kite k1"></div>
+ <div class="kite k2"></div>
+ <div class="kite k3"></div>
+</div>
+
+<!-- TELA DE ACESSO RG PIPAS -->
+
+<div id="loginScreen" class="login-screen">
+
+ <div class="login-box">
+
+  <div class="login-kite">🪁</div>
+
+  <div class="login-brand">
+   RG <span>PIPAS</span>
+  </div>
+
+  <h1>TEMPO PARA PIPEIROS</h1>
+
+  <p class="login-subtitle">
+   WIND SYSTEM • CLIMA • VENTO
+  </p>
+
+  <div class="login-divider"></div>
+
+  <p class="login-welcome">
+   O céu é o limite.
+  </p>
+
+  <button class="login-google" onclick="loginGoogle()">
+   <span>G</span> CONTINUAR COM GOOGLE
+  </button>
+
+  <button class="login-apple" onclick="loginApple()">
+   <span>●</span> CONTINUAR COM APPLE
+  </button>
+
+  <div class="login-email-area">
+
+   <input
+    type="email"
+    id="loginEmail"
+    placeholder="Seu e-mail"
+    autocomplete="email">
+
+   <button onclick="loginEmail()">
+    CONTINUAR COM E-MAIL
+   </button>
+
+  </div>
+
+  <button class="guest-button" onclick="entrarVisitante()">
+   ENTRAR COMO VISITANTE
+  </button>
+
+  <div id="loginMessage"></div>
+
+  <p class="login-footer">
+   RG PIPAS • WIND SYSTEM © 2026
+  </p>
+
+ </div>
+
+</div>
+
 <div class="container">
 
 <header>
@@ -648,15 +1205,15 @@ function direcao(graus){
 
 function analisar(vento,rajada){
 
- if(rajada>=25 || vento>=18 || rajada-vento>=12){
+ if(rajada>=25 || vento>=25 || rajada-vento>=30){
   return {
    titulo:"🔴 VENTO MUITO FORTE",
    classe:"danger",
-   texto:"Vento ta SINISTRO hoje,cuidado pra não voar junto com a pipa😱"
+   texto:"Vento ta SINISTRO hoje,nem vai!😱"
   };
  }
 
- if(vento>=13 || rajada>=18){
+ if(vento>=15 || rajada>=30){
   return {
    titulo:"🟠 ATENÇÃO: VENTO ELEVADO",
    classe:"warn",
@@ -664,7 +1221,7 @@ function analisar(vento,rajada){
   };
  }
 
- if(vento>=5){
+ if(vento>=10 || rajada>=20){
   return {
    titulo:"🟢 VENTO PERFEITO",
    classe:"good",
@@ -672,10 +1229,11 @@ function analisar(vento,rajada){
   };
  }
 
- return {
+ if(vento>=5 || rajada>=10){
+  return {
   titulo:"🟡 VENTO FRACO",
   classe:"warn",
-  texto:"IXI! Hoje a pipa só sobe no ventilador 🥲"
+  texto:"Hoje a pipa só sobe no ventilador "
  };
 }
 
@@ -683,7 +1241,7 @@ function analisar(vento,rajada){
 
 function guiaTamanho(vento,rajada){
 
- if(rajada>=25 || vento>=18 || rajada-vento>=12){
+ if(rajada>=40 || vento>=20 || rajada-vento>=30){
   return {
    titulo:"⛔ NÃO RECOMENDADO",
    texto:"Não recomendamos soltar pipa com vento muito forte. Aguarde condições mais seguras."
@@ -692,8 +1250,8 @@ function guiaTamanho(vento,rajada){
 
  if(vento<5){
   return {
-   titulo:"VENTO FRACO",
-   texto:"PIPA HOJE SÓ NO VENTILADOR😭"
+   titulo:"Pipas mais leves podem ate subir,mas custara esforço!",
+   texto:"Fala pros amigos assoprar que vai🌬️💨🪁"
   };
  }
 
@@ -704,14 +1262,15 @@ function guiaTamanho(vento,rajada){
   };
  }
 
- if(vento<13){
+  if(vento>=10 || rajada>=20){
   return {
    titulo:"REFERÊNCIA: 45 A 70 CM",
-   texto:"Faixa intermediária de tamanhos para avaliação recreativa. Observe sempre as rajadas."
+   texto:"Vento ótimo! Mas observe sempre as rajadas."
   };
  }
 
- return {
+ if(vento<15){
+  return {
   titulo:"VENTO ELEVADO",
   texto:"PIPAS DE 45 E 50 FICAM PERFEITAS NESSE VENTO,MAS EXIGE CUIDADO ⚠️ "
  };
@@ -745,7 +1304,8 @@ function analisarChuva(chance,volume){
   };
  }
 
- return {
+  if(chance>=10 || volume>0){
+  return {
   titulo:"🟢 ÓTIMO PRA SOLTAR PIPA 🪁 ",
   classe:"good",
   texto:"A previsão indica baixa possibilidade de chuva neste período. As condições podem mudar."
@@ -1109,6 +1669,47 @@ if("serviceWorker" in navigator){
 
  });
 
+}
+
+// ===== SISTEMA DE ENTRADA =====
+
+function entrarVisitante(){
+ const tela=document.getElementById("loginScreen");
+ tela.style.opacity="0";
+ tela.style.transition="opacity .35s";
+
+ setTimeout(()=>{
+  tela.style.display="none";
+ },350);
+}
+
+function loginGoogle(){
+ document.getElementById("loginMessage").textContent=
+ "Login Google ainda precisa de configuração de autenticação.";
+}
+
+function loginApple(){
+ document.getElementById("loginMessage").textContent=
+ "Login Apple ainda precisa de configuração de autenticação.";
+}
+
+function loginEmail(){
+ const email=document.getElementById("loginEmail").value.trim();
+
+ const msg=document.getElementById("loginMessage");
+
+ if(!email){
+  msg.textContent="Digite seu e-mail para continuar.";
+  return;
+ }
+
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+  msg.textContent="Digite um endereço de e-mail válido.";
+  return;
+ }
+
+ msg.textContent=
+ "Sistema de autenticação por e-mail ainda não configurado.";
 }
 
 </script>
